@@ -16,7 +16,7 @@ class Solution {
             {
                 s_stack.pop();
             }
-        }        
+        }     
         for(char c : tChars) 
         {
             if(c != '#') 
