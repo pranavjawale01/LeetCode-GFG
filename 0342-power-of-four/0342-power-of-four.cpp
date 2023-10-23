@@ -5,10 +5,10 @@ public:
         {
             return false;
         }
-        else if(n==1)
+        while(n%4==0)
         {
-            return true;
+            n /= 4;
         }
-        return n%4==0 && isPowerOfFour(n/4);
+        return n==1;
     }
 };
