@@ -11,27 +11,44 @@
  */
 class Solution {
 public:
-    int maxDiff;
-    void findMax (TreeNode* root, TreeNode* child) {
-        if (root == nullptr || child == nullptr) {
-            return;
-        }
-        maxDiff = max(maxDiff, abs(root->val - child->val));
-        findMax(root, child->left);
-        findMax(root, child->right);
-    }
-    void findMaxDiff(TreeNode* root) {
+    int findMaxDiff(TreeNode* root, int minV, int maxV) {
         if (root == nullptr) {
-            return;
+            return abs(minV - maxV);
         }
-        findMax (root, root->left);
-        findMax (root, root->right);
-        findMaxDiff (root->left);
-        findMaxDiff (root->right);
+        minV = min(minV, root->val);
+        maxV = max(maxV, root->val);
+        int l = findMaxDiff(root->left, minV, maxV);
+        int r = findMaxDiff(root->right, minV, maxV);
+        return max(l, r);
     }
     int maxAncestorDiff(TreeNode* root) {
-        maxDiff = -1;
-        findMaxDiff (root);
-        return maxDiff;
+        return findMaxDiff(root, root->val, root->val);
     }
 };
+
+// class Solution {
+// public:
+//     int maxDiff;
+//     void findMax (TreeNode* root, TreeNode* child) {
+//         if (root == nullptr || child == nullptr) {
+//             return;
+//         }
+//         maxDiff = max(maxDiff, abs(root->val - child->val));
+//         findMax(root, child->left);
+//         findMax(root, child->right);
+//     }
+//     void findMaxDiff(TreeNode* root) {
+//         if (root == nullptr) {
+//             return;
+//         }
+//         findMax (root, root->left);
+//         findMax (root, root->right);
+//         findMaxDiff (root->left);
+//         findMaxDiff (root->right);
+//     }
+//     int maxAncestorDiff(TreeNode* root) {
+//         maxDiff = -1;
+//         findMaxDiff (root);
+//         return maxDiff;
+//     }
+// };
