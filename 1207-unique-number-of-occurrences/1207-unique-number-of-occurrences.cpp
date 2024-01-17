@@ -1,13 +1,13 @@
 class Solution {
 public:
     bool uniqueOccurrences(vector<int>& arr) {
-        unordered_set<int> unique;        
-        unordered_map<int, int> mp;
+        vector<int> vec(2001,0);
         for (int i = 0; i < arr.size(); i++) {
-            mp[arr[i]]++;
+            vec[arr[i] + 1000]++;
         }
-        for (auto it : mp) {
-            if (!unique.insert(it.second).second) {
+        sort(vec.begin(), vec.end());
+        for (int i = 1; i < vec.size(); i++) {
+            if (vec[i] != 0 && vec[i] == vec[i-1]) {
                 return false;
             }
         }
