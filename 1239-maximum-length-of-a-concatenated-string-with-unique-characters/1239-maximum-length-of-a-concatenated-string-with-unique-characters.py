@@ -1,38 +1,30 @@
-class Solution {
-    public int maxLength(List<String> arr) {
-        List<Integer> uniqueCharStrings = new ArrayList<>();
+class Solution:
+    def maxLength(self, arr: List[str]) -> int:
+        self.memory = {}
 
-        for (String s : arr) {
-            Set<Character> set = new HashSet<>();
-            
-            for (char ch : s.toCharArray()) {
-                set.add(ch);
-            }
+        def hasDuplicate(s1, s2):
+            temp = s1 + s2
+            charSet = set()
+            for ch in temp:
+                if ch in charSet:
+                    return True
+                charSet.add(ch)
+            return False
 
-            if (set.size() != s.length()) {
-                continue;
-            }
+        def recursive(arr, temp, i):
+            if i >= len(arr):
+                return len(temp)
+            if temp in self.memory:
+                return self.memory[temp]
 
-            int val = 0;
-            for (char ch : s.toCharArray()) {
-                val |= 1 << (ch - 'a');
-            }
+            include, exclude = 0, 0
+            if not hasDuplicate(temp, arr[i]):
+                include = recursive(arr, temp + arr[i], i + 1)
+            exclude = recursive(arr, temp, i + 1)
 
-            uniqueCharStrings.add(val);
-        }
+            self.memory[temp] = max(include, exclude)
+            return self.memory[temp]
 
-        int[] result = { 0 }; 
-        dfs(0, 0, result, uniqueCharStrings);
-        return result[0];
-    }
-
-    private void dfs(int idx, int temp, int[] result, List<Integer> uniqueCharStrings) {
-        result[0] = Math.max(result[0], Integer.bitCount(temp));
-
-        for (int i = idx; i < uniqueCharStrings.size(); i++) {
-            if ((temp & uniqueCharStrings.get(i)) == 0) {
-                dfs(i + 1, temp | uniqueCharStrings.get(i), result, uniqueCharStrings);
-            }
-        }
-    }
-}
+        temp = ""
+        self.memory.clear()
+        return recursive(arr, temp, 0)
