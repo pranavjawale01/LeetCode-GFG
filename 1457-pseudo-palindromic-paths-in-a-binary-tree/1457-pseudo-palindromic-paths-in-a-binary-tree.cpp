@@ -12,77 +12,101 @@
 class Solution {
 public:
     int result = 0;
-    void solve(TreeNode* root, vector<int>& count) {
+    void solve(TreeNode* root, int count) {
         if (root == nullptr) {
             return;
         }
-        count[root->val]++;
+        count = (count ^ (1 << root->val));
         if (root->left == nullptr && root->right == nullptr) {
-            int freq = 0;
-            for (int  i = 0; i <= 9; i++) {
-                if (count[i] % 2 != 0) {
-                    freq++;
-                }
-            }
-            if (freq < 2) {
+            if ((count & (count -1)) == 0) {
                 result++;
             }
         }
         
         solve(root->left, count);
         solve(root->right, count);
-        
-        count[root->val]--;
     }
     
     int pseudoPalindromicPaths (TreeNode* root) {
-        vector<int> count(10, 0);
-        solve(root, count);
+        solve(root, 0);
         return result;
     }
 };
 
 // class Solution {
 // public:
-//     bool checkPalli(vector<int> input) {
-//         int n = input.size(), count = 0;
-//         for (int i = 0; i < n; i++) {
-//             if (input[i] % 2 != 0) {
-//                 count++;
-//             }
-//         }
-//         return count < 2;
-//     }
-
-//     void recursive(TreeNode* root, vector<vector<int>>& output, vector<int> temp) {
+//     int result = 0;
+//     void solve(TreeNode* root, vector<int>& count) {
 //         if (root == nullptr) {
 //             return;
 //         }
-
-//         temp[root->val]++;
-
+//         count[root->val]++;
 //         if (root->left == nullptr && root->right == nullptr) {
-//             output.push_back(temp);
-//             return;
-//         }
-
-//         recursive(root->left, output, temp);
-//         recursive(root->right, output, temp);
-//     }
-
-
-
-//     int pseudoPalindromicPaths(TreeNode* root) {
-//         vector<vector<int>> output;
-//         vector<int> temp(10, 0);
-//         int count = 0;
-//         recursive(root, output, temp);
-//         int n = output.size();
-//         for (int i = 0; i < n; i++) {
-//             if (checkPalli(output[i])) {
-//                 count++;
+//             int freq = 0;
+//             for (int  i = 0; i <= 9; i++) {
+//                 if (count[i] % 2 != 0) {
+//                     freq++;
+//                 }
+//             }
+//             if (freq < 2) {
+//                 result++;
 //             }
 //         }
-//         return count;
+        
+//         solve(root->left, count);
+//         solve(root->right, count);
+        
+//         count[root->val]--;
+//     }
+    
+//     int pseudoPalindromicPaths (TreeNode* root) {
+//         vector<int> count(10, 0);
+//         solve(root, count);
+//         return result;
 //     }
 // };
+
+// // class Solution {
+// // public:
+// //     bool checkPalli(vector<int> input) {
+// //         int n = input.size(), count = 0;
+// //         for (int i = 0; i < n; i++) {
+// //             if (input[i] % 2 != 0) {
+// //                 count++;
+// //             }
+// //         }
+// //         return count < 2;
+// //     }
+
+// //     void recursive(TreeNode* root, vector<vector<int>>& output, vector<int> temp) {
+// //         if (root == nullptr) {
+// //             return;
+// //         }
+
+// //         temp[root->val]++;
+
+// //         if (root->left == nullptr && root->right == nullptr) {
+// //             output.push_back(temp);
+// //             return;
+// //         }
+
+// //         recursive(root->left, output, temp);
+// //         recursive(root->right, output, temp);
+// //     }
+
+
+
+// //     int pseudoPalindromicPaths(TreeNode* root) {
+// //         vector<vector<int>> output;
+// //         vector<int> temp(10, 0);
+// //         int count = 0;
+// //         recursive(root, output, temp);
+// //         int n = output.size();
+// //         for (int i = 0; i < n; i++) {
+// //             if (checkPalli(output[i])) {
+// //                 count++;
+// //             }
+// //         }
+// //         return count;
+// //     }
+// // };
