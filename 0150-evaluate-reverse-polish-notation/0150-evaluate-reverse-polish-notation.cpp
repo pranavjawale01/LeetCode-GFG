@@ -1,38 +1,31 @@
 class Solution {
 public:
-    int evaluate(string op, int operand1, int operand2) {
-        if (op == "+") {
-            return operand1 + operand2;
-        } else if (op == "-") {
-            return operand1 - operand2;
-        } else if (op == "*") {
-            return operand1 * operand2;
-        } else if (op == "/") {
-            return operand1 / operand2;
-        }
-        return 0;
-    }
-
     int evalRPN(vector<string>& tokens) {
-        int n = tokens.size();
         stack<int> stk;
-
+        int n = tokens.size();
+    
         for (int i = 0; i < n; i++) {
-            string token = tokens[i];
+            if (tokens[i] == "+" || tokens[i] == "-" || tokens[i] == "*" || tokens[i] == "/") {
+                int operator2 = stk.top();
+                stk.pop();
+                int operator1 =  stk.top();
+                stk.pop();
 
-            try {
-                int num = stoi(token);
-                stk.push(num);
-            } catch (const invalid_argument& e) {
-                int operand2 = stk.top();
-                stk.pop();
-                int operand1 = stk.top();
-                stk.pop();
-                int result = evaluate(token, operand1, operand2);
-                stk.push(result);
+                int tempResult;
+                if (tokens[i] == "+") {
+                    tempResult = (operator1 + operator2);
+                } else if(tokens[i] == "-") {
+                    tempResult = (operator1 - operator2);
+                } else if(tokens[i] == "*") {
+                    tempResult = (operator1 * operator2);
+                } else if(tokens[i] == "/") {
+                    tempResult = (operator1 / operator2);
+                }
+                stk.push(tempResult);
+            } else {
+                stk.push(stoi(tokens[i]));
             }
         }
-
         return stk.top();
     }
 };
