@@ -1,19 +1,19 @@
 class Solution {
 public:
     vector<vector<int>> divideArray(vector<int>& nums, int k) {
-        vector<vector<int>> output;
         int n = nums.size();
-        sort(nums.begin(), nums.end());
-        for (int i = 0; i < n; i += 3) {
-            vector<int> temp(3, 0);
-            temp[0] = nums[i];
-            temp[1] = nums[i+1];
-            temp[2] = nums[i+2];
-            if (temp[2] - temp[0] > k) {
+        vector<vector<int>> result;
+        
+        sort(begin(nums), end(nums));
+        
+        for(int i = 0; i <= n-3; i += 3) {
+            if(nums[i+2] - nums[i] > k) {
                 return {};
             }
-            output.push_back(temp);
+            
+            result.push_back({nums[i], nums[i+1], nums[i+2]});
         }
-        return output;
+        
+        return result;
     }
 };
