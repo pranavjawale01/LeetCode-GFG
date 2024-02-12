@@ -1,15 +1,14 @@
 import pandas as pd
 
 def get_average_time(activity: pd.DataFrame) -> pd.DataFrame:
-    start_activities = activity[activity['activity_type'] == 'start']
-    end_activities = activity[activity['activity_type'] == 'end']
-    merged_activities = pd.merge(start_activities, end_activities, on=['machine_id', 'process_id'])
+    start_df = activity.loc[activity["activity_type"]=="start"]
+    end_df = activity.loc[activity["activity_type"]=="end"]
 
-    merged_activities['processing_time'] = merged_activities['timestamp_y'] - merged_activities['timestamp_x']
+    full_df = start_df.merge(end_df,how="inner",on=["machine_id","process_id"])
+    full_df["processing_time"] = full_df["timestamp_y"] - full_df["timestamp_x"]
 
-    average_time = merged_activities.groupby('machine_id')['processing_time'].mean().reset_index()
+    grouped_df = full_df.groupby(by=["machine_id"]).agg({"processing_time":"mean"})
+    grouped_df.reset_index(inplace=True)
+    grouped_df["processing_time"] = grouped_df["processing_time"].round(3)
 
-    # Round the average processing time to 3 decimal places
-    average_time['processing_time'] = average_time['processing_time'].round(3)
-
-    return average_time
+    return grouped_df
