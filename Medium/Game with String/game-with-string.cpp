@@ -9,34 +9,61 @@ using namespace std;
 
 class Solution{
 public:
-    int maxElement(vector<int>& vec) {
-        int max = 0, idx = 0;
-        for (int i = 0; i < 26; i++) {
-            if (max < vec[i]) {
-                max = vec[i];
-                idx = i;
-            }
-        }
-        return idx;
-    }
     int minValue(string s, int k){
-        // code here
-        vector<int> vec(26, 0);
+        unordered_map<char, int> mp;
         for (char c : s) {
-            vec[c - 'a']++;
+            mp[c]++;
         }
-        int idx = 0;
-        for (int i = 0; i < k; i++) {
-            idx = maxElement(vec);
-            vec[idx]--;
+        priority_queue<int> pq;
+        for (auto x : mp) {
+            pq.push(x.second);
         }
-        int sum = 0;
-        for (int i = 0; i < 26; i++) {
-            sum += vec[i]*vec[i];
+        int ans = 0;
+        while (k--) {
+            int temp = pq.top();
+            pq.pop();
+            temp--;
+            pq.push(temp);
         }
-        return sum;
+        while (pq.size()) {
+            int temp = pq.top();
+            pq.pop();
+            ans += temp*temp;
+        }
+        return ans;
     }
 };
+
+// class Solution{
+// public:
+//     int maxElement(vector<int>& vec) {
+//         int max = 0, idx = 0;
+//         for (int i = 0; i < 26; i++) {
+//             if (max < vec[i]) {
+//                 max = vec[i];
+//                 idx = i;
+//             }
+//         }
+//         return idx;
+//     }
+//     int minValue(string s, int k){
+//         // code here
+//         vector<int> vec(26, 0);
+//         for (char c : s) {
+//             vec[c - 'a']++;
+//         }
+//         int idx = 0;
+//         for (int i = 0; i < k; i++) {
+//             idx = maxElement(vec);
+//             vec[idx]--;
+//         }
+//         int sum = 0;
+//         for (int i = 0; i < 26; i++) {
+//             sum += vec[i]*vec[i];
+//         }
+//         return sum;
+//     }
+// };
 
 //{ Driver Code Starts.
 
