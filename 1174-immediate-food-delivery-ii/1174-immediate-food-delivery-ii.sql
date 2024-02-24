@@ -1,14 +1,7 @@
-# Write your MySQL query statement below
-WITH cte AS (
-    SELECT DISTINCT customer_id, order_date, customer_pref_delivery_date
-    FROM delivery
-    WHERE concat(customer_id, '|', order_date) IN 
-    (SELECT CONCAT(customer_id,'|', min(order_date))
-        FROM delivery GROUP BY customer_id
-    )
-)
+/* Write your PL/SQL query statement below */
+WITH temp AS (SELECT ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date) AS row_num,
+customer_id, order_date, customer_pref_delivery_date FROM delivery)
 
-SELECT ROUND(COUNT(cte2.customer_id) / COUNT(cte1.customer_id) * 100, 2) AS immediate_percentage
-FROM cte cte1 LEFT JOIN cte cte2
-ON cte1.customer_id = cte2.customer_id
-AND cte1.order_date = cte2.customer_pref_delivery_date
+SELECT ROUND(CAST(SUM(CASE WHEN row_num = 1 AND order_date = customer_pref_delivery_date THEN 1 ELSE 0 END)
+AS BINARY_DOUBLE) / SUM(CASE WHEN row_num = 1 THEN 1 ELSE 0 END) * 100, 2) AS immediate_percentage
+FROM temp
