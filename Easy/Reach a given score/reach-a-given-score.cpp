@@ -5,6 +5,26 @@
 using namespace std;
 
 // } Driver Code Ends
+// Time limit exceeded
+// class Solution 
+// {
+//     public:
+//     long long solve(long long n, long long i, vector<long long>& v) {
+//         if (n == 0) {
+//             return 1;
+//         }
+//         if (i >= 3 || n < 0) {
+//             return 0;
+//         }
+//         long long take = solve(n-v[i], i, v);
+//         long long notTake = solve(n, i+1, v);
+//         return take + notTake;
+//     }
+//     long long int count(long long int n) {
+//         vector<long long> v = {3, 5, 10};
+//         return solve(n, 0, v);
+//     }
+// };
 
 class Solution
 {
