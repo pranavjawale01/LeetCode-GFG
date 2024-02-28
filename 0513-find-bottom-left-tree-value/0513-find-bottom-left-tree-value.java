@@ -19,18 +19,41 @@ class Solution {
         q.offer(root);
         int value = 0;
         while (!q.isEmpty()) {
-            TreeNode temp = q.poll();
-            value = temp.val;
-            if (temp.right != null) {
-                q.offer(temp.right);
-            }
-            if (temp.left != null) {
-                q.offer(temp.left);
+            int n = q.size();
+            while (n > 0) {
+                TreeNode temp = q.poll();
+                value = temp.val;
+                if (temp.right != null) {
+                    q.offer(temp.right);
+                }
+                if (temp.left != null) {
+                    q.offer(temp.left);
+                }
+                n -= 1;
             }
         }
         return value;
     }
 }
+
+// class Solution {
+//     public int findBottomLeftValue(TreeNode root) {
+//         Queue<TreeNode> q = new LinkedList<>();
+//         q.offer(root);
+//         int value = 0;
+//         while (!q.isEmpty()) {
+//             TreeNode temp = q.poll();
+//             value = temp.val;
+//             if (temp.right != null) {
+//                 q.offer(temp.right);
+//             }
+//             if (temp.left != null) {
+//                 q.offer(temp.left);
+//             }
+//         }
+//         return value;
+//     }
+// }
 
 // /**
 //  * Definition for a binary tree node.
