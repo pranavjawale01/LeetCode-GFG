@@ -4,18 +4,35 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution:
     def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
         q = deque([root])
         value = 0
         while q:
-            temp = q.popleft()
-            value = temp.val
-            if temp.right:
-                q.append(temp.right)
-            if temp.left:
-                q.append(temp.left)
+            n = len(q)
+            while n:
+                temp = q.popleft()
+                value = temp.val
+                if temp.right:
+                    q.append(temp.right)
+                if temp.left:
+                    q.append(temp.left)
+                n -= 1
         return value
+
+# class Solution:
+#     def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
+#         q = deque([root])
+#         value = 0
+#         while q:
+#             temp = q.popleft()
+#             value = temp.val
+#             if temp.right:
+#                 q.append(temp.right)
+#             if temp.left:
+#                 q.append(temp.left)
+#         return value
 
 # # Definition for a binary tree node.
 # # class TreeNode:
