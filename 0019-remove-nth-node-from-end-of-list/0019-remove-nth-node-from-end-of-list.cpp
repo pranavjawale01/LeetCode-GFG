@@ -10,21 +10,30 @@
  */
 class Solution {
 public:
+    int getLengthOfLinkedList(ListNode* head) {
+        int count = 0;
+        while (head != nullptr) {
+            head = head->next;
+            count++;
+        }
+        return count;
+    }
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        ListNode* result = new ListNode(0);
-        result->next = head;
-        ListNode* first = result;
-        ListNode* second = result;
-        for (int i = 1; i <= n + 1; i++) 
-        {
-            first = first->next;
+        int l = getLengthOfLinkedList(head);
+        if (l == n) {
+            ListNode* temp = head->next;
+            delete(head);
+            return temp;
         }
-        while (first != nullptr) 
-        {
-            first = first->next;
-            second = second->next;
+        l -= n;
+        ListNode* temp = head;
+        ListNode* prev = nullptr;
+        while (l--) {
+            prev = temp;
+            temp = temp->next;
         }
-        second->next = second->next->next;
-        return result->next;
+        prev->next = temp->next;
+        delete(temp);
+        return head;
     }
 };
