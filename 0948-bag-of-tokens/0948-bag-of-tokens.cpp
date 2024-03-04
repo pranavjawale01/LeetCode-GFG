@@ -1,23 +1,20 @@
 class Solution {
 public:
-    int bagOfTokensScore(vector<int>& tokens, int P) {
-        int n = tokens.size();
+    int bagOfTokensScore(vector<int>& tokens, int power) {
         sort(tokens.begin(), tokens.end());
-        
-        int currScore = 0;
-        int maxScore  = 0;
-        int l = 0, r = n-1;
-
-        while(l <= r) {
-            if(P >= tokens[l]) {
-                currScore++;
-                maxScore = max(maxScore, currScore);
-                P -= tokens[l];
-                l++;                
-            } else if(currScore >= 1) {
-                currScore--;
-                P += tokens[r];
-                r--;                
+        int n = tokens.size();
+        int l = 0, r = n - 1;
+        int maxScore = 0, score = 0;
+        while (l <= r) {
+            if (power >= tokens[l]) {
+                power -= tokens[l];
+                score++;
+                l++;
+                maxScore = max(maxScore, score);
+            } else if (score >= 1) {
+                score--;
+                power += tokens[r];
+                r--;
             } else {
                 return maxScore;
             }
