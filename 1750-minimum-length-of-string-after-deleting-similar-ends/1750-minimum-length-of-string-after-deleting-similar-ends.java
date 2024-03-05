@@ -7,7 +7,7 @@ class Solution {
             while (i < j && s.charAt(i) == ch) {
                 i++;
             }
-            while (j >= i && s.charAt(j) == ch) {
+            while (j > i && s.charAt(j) == ch) {
                 j--;
             }
         }
