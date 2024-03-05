@@ -1,10 +1,11 @@
-# Write your MySQL query statement below
-SELECT 
-    manager.employee_id, 
-    manager.name, 
-    COUNT(emp.employee_id) AS reports_count,
-    ROUND(AVG(emp.age)) AS average_age
-FROM Employees emp
-JOIN Employees manager ON emp.reports_to = manager.employee_id
-GROUP BY employee_id
-ORDER BY employee_id;
+-- Write your PostgreSQL query statement below
+SELECT
+    m.employee_id,
+    m.name,
+    COUNT(e.employee_id) AS reports_count,
+    ROUND(AVG(e.age)) AS average_age
+FROM Employees m
+LEFT JOIN Employees e ON m.employee_id = e.reports_to
+GROUP BY m.employee_id, m.name
+HAVING COUNT(e.employee_id) > 0
+ORDER BY employee_id
