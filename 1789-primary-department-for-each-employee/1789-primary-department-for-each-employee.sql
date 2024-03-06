@@ -1,9 +1,18 @@
-# Write your MySQL query statement below
-SELECT employee_id, department_id
-FROM Employee
-WHERE primary_flag = 'Y'
-UNION
-SELECT employee_id, department_id
-FROM Employee
-GROUP BY employee_id
-HAVING COUNT(department_id) = 1;
+-- Write your PostgreSQL query statement below
+select
+	employee_id,
+	department_id
+from
+	Employee as e1
+where
+	primary_flag = 'Y'
+	or (
+		select
+			count(employee_id)
+		from
+			Employee as e2
+		where
+			e2.employee_id = e1.employee_id
+		group by
+			employee_id
+	) = 1
