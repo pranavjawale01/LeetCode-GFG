@@ -11,21 +11,33 @@
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        if (!head) {
-            return nullptr;
-        }
         ListNode* slow = head;
         ListNode* fast = head;
         while (fast && fast->next) {
-            if (fast->next == nullptr) {
-                return slow->next;
-            }
-            if (fast->next->next == nullptr) {
-                return slow->next;
-            }
             slow = slow->next;
             fast = fast->next->next;
         }
         return slow;
     }
 };
+// class Solution {
+// public:
+//     ListNode* middleNode(ListNode* head) {
+//         if (!head) {
+//             return nullptr;
+//         }
+//         ListNode* slow = head;
+//         ListNode* fast = head;
+//         while (fast && fast->next) {
+//             if (fast->next == nullptr) {
+//                 return slow->next;
+//             }
+//             if (fast->next->next == nullptr) {
+//                 return slow->next;
+//             }
+//             slow = slow->next;
+//             fast = fast->next->next;
+//         }
+//         return slow;
+//     }
+// };
