@@ -1,14 +1,10 @@
 class Solution {
 public:
     int getCommon(vector<int>& nums1, vector<int>& nums2) {
-        unordered_map<int, int> mp;
-        for (int num : nums1) {
-            mp[num]++;
-        }
-        for (int num : nums2) {
-            mp[num]++;
-            if (mp[num] > 1) {
-                return mp[num];
+        unordered_set<int> st(begin(nums1), end(nums1));
+        for (int &num : nums2) {
+            if (st.find(num) != st.end()) {
+                return num;
             }
         }
         return -1;
