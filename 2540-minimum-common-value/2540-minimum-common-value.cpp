@@ -15,7 +15,7 @@ public:
         return false;
     }
     int getCommon(vector<int>& nums1, vector<int>& nums2) {
-        for (int &num : nums2) {
+        for (int &num : nums1) {
             if (binarySearch(nums2, num)) {
                 return num;
             }
