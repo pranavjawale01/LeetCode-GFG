@@ -1,10 +1,30 @@
 class Solution:
     def getCommon(self, nums1: List[int], nums2: List[int]) -> int:
-        st = set(nums1)
-        for num in nums2:
-            if num in st:
+        
+        def binarySearch(nums : List[int], num : int) -> bool:
+            low , high = 0, len(nums) - 1
+            while (low <= high):
+                mid = low + (high - low) // 2
+                if nums[mid] == num:
+                    return True
+                elif nums[mid] > num:
+                    high = mid - 1
+                else:
+                    low = mid + 1
+            return False
+
+        for num in nums1:
+            if binarySearch(nums2, num):
                 return num
         return -1
+
+# class Solution:
+#     def getCommon(self, nums1: List[int], nums2: List[int]) -> int:
+#         st = set(nums1)
+#         for num in nums2:
+#             if num in st:
+#                 return num
+#         return -1
 
 # class Solution:
 #     def getCommon(self, nums1: List[int], nums2: List[int]) -> int:
