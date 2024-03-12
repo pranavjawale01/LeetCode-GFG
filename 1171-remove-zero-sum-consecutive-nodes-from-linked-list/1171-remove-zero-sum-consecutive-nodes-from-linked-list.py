@@ -8,7 +8,7 @@ class Solution:
         con_sum = 0
         dummy = ListNode(0)
         dummy.next = head
-        mp = defaultdict(int)
+        mp = {}
         mp[0] = dummy
 
         while head:
@@ -16,11 +16,11 @@ class Solution:
             if con_sum in mp:
                 start = mp[con_sum]
                 temp = start
-                p_sum = 0
+                p_sum = con_sum
                 while temp != head:
                     temp = temp.next
                     p_sum += temp.val
-                    if head != head:
+                    if temp != head:
                         del mp[p_sum]
                 start.next = head.next
             else:
