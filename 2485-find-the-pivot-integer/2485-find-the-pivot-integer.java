@@ -1,29 +1,62 @@
-// 3.Two Pointer
+// 1. Mathematics + Binary Search
 
 class Solution {
     public int pivotInteger(int n) {
-        int lSum = 1, rSum = n;
+        int totalSum = n  * (n + 1) / 2;
         int left = 1, right = n;
-        while (left < right) {
-            if (lSum == rSum) {
-                left++;
-                right--;
-                lSum += left;
-                rSum += right;
-            } else if (lSum < rSum) {
-                left++;
-                lSum += left;
+        while (left <= right) {
+            int mid_pivot = left + (right - left) / 2;
+            if (mid_pivot * mid_pivot == totalSum) {
+                return mid_pivot;
+            } else if (mid_pivot * mid_pivot > totalSum) {
+                right = mid_pivot - 1;
             } else {
-                right--;
-                rSum += right;
+                left = mid_pivot + 1;
             }
-        }
-        if (rSum == lSum) {
-            return left;
         }
         return -1;
     }
 }
+
+// // 2.Mathematics
+
+// class Solution {
+//     public int pivotInteger(int n) {
+//         int totalSum = n  * (n + 1) / 2;
+//         int i = (int) Math.sqrt(totalSum);
+//         if (i * i == totalSum) {
+//             return i;
+//         }
+//         return -1;
+//     }
+// }
+
+// // 3.Two Pointer
+
+// class Solution {
+//     public int pivotInteger(int n) {
+//         int lSum = 1, rSum = n;
+//         int left = 1, right = n;
+//         while (left < right) {
+//             if (lSum == rSum) {
+//                 left++;
+//                 right--;
+//                 lSum += left;
+//                 rSum += right;
+//             } else if (lSum < rSum) {
+//                 left++;
+//                 lSum += left;
+//             } else {
+//                 right--;
+//                 rSum += right;
+//             }
+//         }
+//         if (rSum == lSum) {
+//             return left;
+//         }
+//         return -1;
+//     }
+// }
 
 // 4. Optimized Brute Force
 
