@@ -1,12 +1,29 @@
-# 2. Mathematics
+# 1. Mathematics + Binary Search
 
 class Solution:
     def pivotInteger(self, n: int) -> int:
-        totalSum = n * (n + 1) // 2
-        i = int(sqrt(totalSum))
-        if i * i == totalSum:
-            return i
+        totalSum = n  * (n + 1) / 2
+        left = 1
+        right = n
+        while left <= right:
+            mid_pivot = left + (right - left) // 2
+            if mid_pivot * mid_pivot == totalSum:
+                return mid_pivot
+            elif mid_pivot * mid_pivot > totalSum:
+                right = mid_pivot - 1
+            else:
+                left = mid_pivot + 1
         return -1
+
+# # 2. Mathematics
+
+# class Solution:
+#     def pivotInteger(self, n: int) -> int:
+#         totalSum = n * (n + 1) // 2
+#         i = int(sqrt(totalSum))
+#         if i * i == totalSum:
+#             return i
+#         return -1
 
 # # 3. Two Pointer
 
