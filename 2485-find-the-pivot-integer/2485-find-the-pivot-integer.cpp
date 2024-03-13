@@ -1,4 +1,4 @@
-// 1. Mathematics
+// 1. Mathematics + Binary Search
 
 class Solution {
 public:
