@@ -1,16 +1,36 @@
-// 2. Mathematics
+// 1. Mathematics
 
 class Solution {
 public:
     int pivotInteger(int n) {
         int totalSum = n  * (n + 1) / 2;
-        int i = sqrt(totalSum);
-        if (i * i == totalSum) {
-            return i;
+        int left = 1, right = n;
+        while (left <= right) {
+            int mid_pivot = left + (right - left) / 2;
+            if (mid_pivot * mid_pivot == totalSum) {
+                return mid_pivot;
+            } else if (mid_pivot * mid_pivot > totalSum) {
+                right = mid_pivot - 1;
+            } else {
+                left = mid_pivot + 1;
+            }
         }
         return -1;
     }
 };
+// // 2. Mathematics
+
+// class Solution {
+// public:
+//     int pivotInteger(int n) {
+//         int totalSum = n  * (n + 1) / 2;
+//         int i = sqrt(totalSum);
+//         if (i * i == totalSum) {
+//             return i;
+//         }
+//         return -1;
+//     }
+// };
 
 // // 3. Two Pointer
 
