@@ -1,24 +1,34 @@
-# 3. Two Pointer
+# 2. Mathematics
 
 class Solution:
     def pivotInteger(self, n: int) -> int:
-        lSum , rSum  = 1, n
-        left , right = 1 , n
-        while left < right:
-            if lSum == rSum:
-                right -= 1
-                left += 1
-                lSum += left
-                rSum += right
-            elif rSum > lSum:
-                left += 1
-                lSum += left
-            else:
-                right -= 1
-                rSum += right
-        if lSum == rSum:
-            return left
+        totalSum = n * (n + 1) // 2
+        i = int(sqrt(totalSum))
+        if i * i == totalSum:
+            return i
         return -1
+
+# # 3. Two Pointer
+
+# class Solution:
+#     def pivotInteger(self, n: int) -> int:
+#         lSum , rSum  = 1, n
+#         left , right = 1 , n
+#         while left < right:
+#             if lSum == rSum:
+#                 right -= 1
+#                 left += 1
+#                 lSum += left
+#                 rSum += right
+#             elif rSum > lSum:
+#                 left += 1
+#                 lSum += left
+#             else:
+#                 right -= 1
+#                 rSum += right
+#         if lSum == rSum:
+#             return left
+#         return -1
 
 # 4. Brute Force Optimized
 
