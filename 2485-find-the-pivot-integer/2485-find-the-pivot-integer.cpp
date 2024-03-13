@@ -1,30 +1,44 @@
-// 3. Two Pointer
+// 2. Mathematics
 
 class Solution {
 public:
     int pivotInteger(int n) {
-        int lSum = 1, rSum = n;
-        int left = 1, right = n;
-        while (left < right) {
-            if (lSum == rSum) {
-                left++;
-                right--;
-                lSum += left;
-                rSum += right;
-            } else if (lSum > rSum) {
-                right--;
-                rSum += right;
-            } else {
-                left++;
-                lSum += left;
-            }
-        }
-        if (lSum == rSum) {
-            return left;
+        int totalSum = n  * (n + 1) / 2;
+        int i = sqrt(totalSum);
+        if (i * i == totalSum) {
+            return i;
         }
         return -1;
     }
 };
+
+// // 3. Two Pointer
+
+// class Solution {
+// public:
+//     int pivotInteger(int n) {
+//         int lSum = 1, rSum = n;
+//         int left = 1, right = n;
+//         while (left < right) {
+//             if (lSum == rSum) {
+//                 left++;
+//                 right--;
+//                 lSum += left;
+//                 rSum += right;
+//             } else if (lSum > rSum) {
+//                 right--;
+//                 rSum += right;
+//             } else {
+//                 left++;
+//                 lSum += left;
+//             }
+//         }
+//         if (lSum == rSum) {
+//             return left;
+//         }
+//         return -1;
+//     }
+// };
 
 // 4. Brute Force Optimized
 
