@@ -1,11 +1,47 @@
+# 3. Two Pointer
+
 class Solution:
     def pivotInteger(self, n: int) -> int:
-        lSum , rSum = 0, 0
-        for i in range(1, n+1):
-            lSum += i
-            for j in range(i, n+1):
-                rSum += j
-            if rSum == lSum:
-                return i
-            rSum = 0
+        lSum , rSum  = 1, n
+        left , right = 1 , n
+        while left < right:
+            if lSum == rSum:
+                right -= 1
+                left += 1
+                lSum += left
+                rSum += right
+            elif rSum > lSum:
+                left += 1
+                lSum += left
+            else:
+                right -= 1
+                rSum += right
+        if lSum == rSum:
+            return left
         return -1
+
+# 4. Brute Force Optimized
+
+# class Solution:
+#     def pivotInteger(self, n: int) -> int:
+#         lSum , rSum , totalSum = 0, 0 , n * (n + 1) // 2
+#         for i in range(1, n+1):
+#             lSum = i * (i + 1) // 2
+#             rSum = totalSum - lSum + i
+#             if rSum == lSum:
+#                 return i
+#         return -1
+
+# 5.Brute Force
+
+# class Solution:
+#     def pivotInteger(self, n: int) -> int:
+#         lSum , rSum = 0, 0
+#         for i in range(1, n+1):
+#             lSum += i
+#             for j in range(i, n+1):
+#                 rSum += j
+#             if rSum == lSum:
+#                 return i
+#             rSum = 0
+#         return -1
