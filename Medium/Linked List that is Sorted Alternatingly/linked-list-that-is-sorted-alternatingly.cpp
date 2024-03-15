@@ -61,24 +61,77 @@ struct Node
 class Solution
 {
     public:
+    Node *reverse(Node *head) {
+        if (head->next == nullptr) {
+            return head;
+        }
+        Node *temp = head;
+        Node *prev = nullptr;
+        Node *after = nullptr;
+        while (temp) {
+            after = temp->next;
+            temp->next = prev;
+            prev = temp;
+            temp = after;
+        }
+        return prev;
+    }
     // your task is to complete this function
     void sort(Node **head)
     {
-         // Code here
-        vector<int> num;
-        Node *temp = *head;
-        while (temp != nullptr) {
-            num.push_back(temp->data);
+        // Code here
+        Node *head1 = new Node(0), *head2 = new Node(0);
+        Node *temp1 = head1, *temp2 = head2, *temp = *head;
+        bool indication = true;
+        
+        while (temp) {
+            if (indication) {
+                temp1->next = temp;
+                temp1 = temp1->next;
+            } else {
+                temp2->next = temp;
+                temp2 = temp2->next;
+            }
             temp = temp->next;
+            indication = !indication;
         }
-        std::sort(begin(num), end(num));
-        temp = *head;
-        int i = 0;
-        while (temp != nullptr) {
-            temp->data= num[i];
-            i++;
+        
+        temp1->next = NULL;
+        temp2->next = NULL;
+        
+        // Reverse the second part of the linked list
+        head2->next = reverse(head2->next);
+        
+        Node *ans = new Node(0);
+        Node *mergedList = ans;
+        head1 = head1->next;
+        temp = head2->next;
+        
+        // Merge the two sorted lists
+        while (head1 && temp) {
+            if (head1->data <= temp->data) {
+                ans->next = head1;
+                head1 = head1->next;
+            } else {
+                ans->next = temp;
+                temp = temp->next;
+            }
+            ans = ans->next;
+        }
+        
+        // Append remaining nodes if any
+        while (head1) {
+            ans->next = head1;
+            head1 = head1->next;
+            ans = ans->next;
+        }
+        while (temp) {
+            ans->next = temp;
             temp = temp->next;
+            ans = ans->next;
         }
+        
+        *head = mergedList->next;
     }
 };
 
