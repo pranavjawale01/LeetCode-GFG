@@ -1,23 +1,18 @@
+/* Write your PL/SQL query statement below */
+WITH week_table AS (
+    SELECT DISTINCT a.visited_on AS start_date, b.visited_on AS end_date
+    FROM Customer a
+    JOIN Customer b ON b.visited_on - a.visited_on = 6
+)
+
 SELECT 
-    visited_on, 
-    (
-        SELECT SUM(amount)
-        FROM Customer
-        WHERE visited_on BETWEEN DATE_SUB(c.visited_on, INTERVAL 6 DAY) AND c.visited_on
-    ) AS amount,
-    ROUND((
-        SELECT SUM(amount) / 7
-        FROM Customer
-        WHERE visited_on BETWEEN DATE_SUB(c.visited_on, INTERVAL 6 DAY) AND c.visited_on
-    ), 2) AS average_amount
+    TO_CHAR(w.start_date + 6, 'YYYY-MM-DD') AS visited_on,
+    SUM(c.amount) AS amount,
+    ROUND(SUM(c.amount) / 7, 2) AS average_amount
 FROM 
-    Customer c
-WHERE 
-    visited_on >= (
-        SELECT DATE_ADD(MIN(visited_on), INTERVAL 6 DAY)
-        FROM Customer
-    )
+    week_table w
+    JOIN Customer c ON c.visited_on BETWEEN w.start_date AND w.end_date
 GROUP BY 
-    visited_on
+    w.start_date
 ORDER BY 
     visited_on;
