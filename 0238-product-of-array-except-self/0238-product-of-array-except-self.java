@@ -1,0 +1,49 @@
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int zeroCount = 0, productWithoutZero = 1;
+        for (int num : nums) {
+            if (num == 0) {
+                zeroCount++;
+            } else {
+                productWithoutZero *= num;
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            int num = nums[i];
+            if (num != 0) {
+                if (zeroCount > 0) {
+                    nums[i] = 0;
+                } else {
+                    nums[i] = productWithoutZero / num;
+                }
+            } else {
+                if (zeroCount > 1) {
+                    nums[i] = 0;
+                } else {
+                    nums[i] = productWithoutZero;
+                }
+            }
+        }
+        return nums;
+    }
+}
+
+// Brute Force
+// class Solution {
+//     public int[] productExceptSelf(int[] nums) {
+//         int n = nums.length;
+//         int[] temp = new int[n];
+//         for (int i = 0; i < n; i++) {
+//             int tem = 1;
+//             for (int j = 0; j < n; j++) {
+//                 if (i == j) {
+//                     continue;
+//                 }
+//                 tem *= nums[j];
+//             }
+//             temp[i] = tem;
+//         }
+//         return temp;
+//     }
+// }
