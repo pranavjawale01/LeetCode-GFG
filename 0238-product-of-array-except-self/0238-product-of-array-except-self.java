@@ -1,33 +1,49 @@
 class Solution {
     public int[] productExceptSelf(int[] nums) {
         int n = nums.length;
-        int zeroCount = 0, productWithoutZero = 1;
-        for (int num : nums) {
-            if (num == 0) {
-                zeroCount++;
-            } else {
-                productWithoutZero *= num;
-            }
+        int[] left = new int[n];
+        int[] right = new int[n];
+        for (int i = 1; i < n; i++) {
+            left[i] = left[i-1]*nums[i-1];
+            right[n-i-1] = right[n-i]*nums[n-i];
         }
         for (int i = 0; i < n; i++) {
-            int num = nums[i];
-            if (num != 0) {
-                if (zeroCount > 0) {
-                    nums[i] = 0;
-                } else {
-                    nums[i] = productWithoutZero / num;
-                }
-            } else {
-                if (zeroCount > 1) {
-                    nums[i] = 0;
-                } else {
-                    nums[i] = productWithoutZero;
-                }
-            }
+            nums[i] = left[i] * right[i];
         }
         return nums;
     }
 }
+
+// class Solution {
+//     public int[] productExceptSelf(int[] nums) {
+//         int n = nums.length;
+//         int zeroCount = 0, productWithoutZero = 1;
+//         for (int num : nums) {
+//             if (num == 0) {
+//                 zeroCount++;
+//             } else {
+//                 productWithoutZero *= num;
+//             }
+//         }
+//         for (int i = 0; i < n; i++) {
+//             int num = nums[i];
+//             if (num != 0) {
+//                 if (zeroCount > 0) {
+//                     nums[i] = 0;
+//                 } else {
+//                     nums[i] = productWithoutZero / num;
+//                 }
+//             } else {
+//                 if (zeroCount > 1) {
+//                     nums[i] = 0;
+//                 } else {
+//                     nums[i] = productWithoutZero;
+//                 }
+//             }
+//         }
+//         return nums;
+//     }
+// }
 
 // Brute Force
 // class Solution {
