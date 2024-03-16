@@ -8,7 +8,7 @@ class Solution {
             if (mp.containsKey(currSum)) {
                 result = Math.max(result, i - mp.get(currSum));
             } else {
-                mp.put(currSum, mp.getOrDefault(currSum, 0) + 1);      
+                mp.put(currSum, i);      
             }
         }
         return result;
