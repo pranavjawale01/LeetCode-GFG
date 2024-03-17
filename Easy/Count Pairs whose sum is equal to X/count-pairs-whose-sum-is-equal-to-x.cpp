@@ -52,32 +52,23 @@ class Solution{
     // your task is to complete this function
     int countPairs(struct Node* head1, struct Node* head2, int x) {
         // Code here
-        vector<int> vec1, vec2;
-        Node *temp1 = head1;
-        Node *temp2 = head2;
-        while (head1 != nullptr) {
-            vec1.push_back(head1->data);
-            head1 = head1->next;
+        set<int>st;
+        Node* temp=head1;
+        while(temp){
+            st.insert(temp->data);
+            temp=temp->next;
         }
-        while (head2 != nullptr) {
-            vec2.push_back(head2->data);
-            head2 = head2->next;
-        }
-        sort(begin(vec1), end(vec1));
-        sort(begin(vec2), end(vec2));
-        int i = 0, n = vec1.size(), j = vec2.size() - 1, count = 0;
-        while (i < n && j >= 0) {
-            if (vec1[i] + vec2[j] == x) {
-                count++;
-                i++;
-                j--;
-            } else if (vec1[i] + vec2[j] > x) {
-                j--;
-            } else {
-                i++;
+        
+        int ans=0;
+        temp=head2;
+        while(temp){
+            int val=temp->data;
+            if(st.find(x-val)!=st.end()){
+                ans++;
             }
+            temp=temp->next;
         }
-        return count;
+        return ans;
     }
 };
 
