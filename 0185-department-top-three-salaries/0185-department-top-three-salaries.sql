@@ -1,17 +1,13 @@
-/* Write your PL/SQL query statement below */
-with t1 as (
-select
-    departmentId,
-    e.name as Employee,
-    salary as Salary,
-    dense_rank() over (partition by departmentId order by salary desc) as ranks
-from Employee e
+-- Write your PostgreSQL query statement below
+SELECT departmentname AS department, name AS employee, salary 
+FROM (
+    SELECT d.name AS departmentname, e.*,
+    dense_rank() OVER (
+        PARTITION BY departmentid 
+        ORDER BY SALARY DESC
+    ) AS rnk
+    FROM employee e 
+    JOIN department d
+    ON e.departmentid = d.id
 )
-select
-    d.name as Department,
-    Employee,
-    Salary
-from t1
-join Department d
-    on t1.departmentId = d.id
-where ranks <=3
+WHERE rnk <= 3;
