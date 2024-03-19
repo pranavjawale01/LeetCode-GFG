@@ -1,4 +1,4 @@
-# Write your MySQL query statement below
-SELECT user_id, CONCAT(UCASE(SUBSTRING(name, 1, 1)), LCASE(SUBSTRING(name, 2))) AS name
+/* Write your PL/SQL query statement below */
+SELECT user_id, INITCAP(name) AS name
 FROM Users
 ORDER BY user_id;
