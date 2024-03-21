@@ -1,4 +1,4 @@
-/* Write your PL/SQL query statement below */
+-- Write your PostgreSQL query statement below
 DELETE FROM Person p1
 WHERE EXISTS (
     SELECT 1 
