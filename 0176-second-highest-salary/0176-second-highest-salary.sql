@@ -1,7 +1,7 @@
-/* Write your PL/SQL query statement below */
+-- Write your PostgreSQL query statement below
 SELECT MAX(salary) AS SecondHighestSalary
 FROM Employee
 WHERE salary < (
-    SELECt MAX(salary) 
+    SELECT MAX(salary)
     FROM Employee
 );
