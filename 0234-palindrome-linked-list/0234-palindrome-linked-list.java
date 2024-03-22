@@ -9,60 +9,90 @@
  * }
  */
 
-// using two pass solution
-
+// two pass solution
 class Solution {
-    public ListNode reverseList(ListNode head) {
-        if(head == null || head.next == null)
-            return head;
-        ListNode last = reverseList(head.next);
-        head.next.next = head;
-        head.next = null;
-        return last;
-    }
-
     public boolean isPalindrome(ListNode head) {
-        if(head == null || head.next == null) {
+        if (head == null || head.next == null) {
             return true;
         }
-        ListNode slow = head;
-        ListNode fast = head;
         ListNode prev = null;
-        while(fast != null && fast.next != null) {
-            prev = slow;
-            slow = slow.next;
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
             fast = fast.next.next;
+            ListNode temp = slow.next;
+            slow.next = prev;
+            prev = slow;
+            slow = temp;
         }
-        ListNode revhead = reverseList(slow);
-        prev.next = null;
-        while(revhead != null && head != null) {
-            if(revhead.val != head.val) {
+        if (fast != null) {
+            slow = slow.next;
+        } 
+        while (prev != null && slow != null) {
+            if (prev.val != slow.val) {
                 return false;
             }
-            revhead = revhead.next;
-            head = head.next;
+            prev = prev.next;
+            slow = slow.next;
         }
         return true;
     }
 }
 
-// using arraylist
+// using two pass solution
+
 // class Solution {
+//     public ListNode reverseList(ListNode head) {
+//         if(head == null || head.next == null)
+//             return head;
+//         ListNode last = reverseList(head.next);
+//         head.next.next = head;
+//         head.next = null;
+//         return last;
+//     }
+
 //     public boolean isPalindrome(ListNode head) {
-//         List<Integer> temp = new ArrayList<>();
-//         ListNode curr = head;
-//         while (curr != null) {
-//             temp.add(curr.val);
-//             curr = curr.next;
+//         if(head == null || head.next == null) {
+//             return true;
 //         }
-//         int i = 0, j = temp.size() - 1;
-//         while (i < j) {
-//             if (!temp.get(i).equals(temp.get(j))) {
+//         ListNode slow = head;
+//         ListNode fast = head;
+//         ListNode prev = null;
+//         while(fast != null && fast.next != null) {
+//             prev = slow;
+//             slow = slow.next;
+//             fast = fast.next.next;
+//         }
+//         ListNode revhead = reverseList(slow);
+//         prev.next = null;
+//         while(revhead != null && head != null) {
+//             if(revhead.val != head.val) {
 //                 return false;
 //             }
-//             i++;
-//             j--;
+//             revhead = revhead.next;
+//             head = head.next;
 //         }
 //         return true;
 //     }
 // }
+
+// // using arraylist
+// // class Solution {
+// //     public boolean isPalindrome(ListNode head) {
+// //         List<Integer> temp = new ArrayList<>();
+// //         ListNode curr = head;
+// //         while (curr != null) {
+// //             temp.add(curr.val);
+// //             curr = curr.next;
+// //         }
+// //         int i = 0, j = temp.size() - 1;
+// //         while (i < j) {
+// //             if (!temp.get(i).equals(temp.get(j))) {
+// //                 return false;
+// //             }
+// //             i++;
+// //             j--;
+// //         }
+// //         return true;
+// //     }
+// // }
