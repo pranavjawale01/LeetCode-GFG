@@ -9,100 +9,97 @@
  * };
  */
 
-// one pass solution
+// without changing data structure
 class Solution {
 public:
-    bool isPalindrome(ListNode* head) {
-        if (!head || !head->next) {
-            return head;
+    ListNode *curr;
+    bool solve(ListNode *head) {
+        if (!head) {
+            return true;
         }
-        ListNode *slow = head;
-        ListNode *fast = head;
-        ListNode *prev = nullptr;
-        while (fast && fast->next) {
-            fast = fast->next->next;
-            ListNode *temp = slow->next;
-            slow->next = prev;
-            prev = slow;
-            slow = temp;
+        if (!solve(head->next) || head->val != curr->val) {
+            return false;
         }
-        if (fast) {
-            slow = slow->next;
-        }
-        while (prev && slow) {
-            if (prev->val != slow->val) {
-                return false;
-            }
-            prev = prev->next;
-            slow = slow->next;
-        }
+        curr = curr->next;
         return true;
+    }
+    bool isPalindrome(ListNode* head) {
+        curr = head;
+        return solve(head);
     }
 };
 
-// two pass solution 
+// one pass solution
 // class Solution {
 // public:
-//     ListNode *reverse(ListNode* head) {
+//     bool isPalindrome(ListNode* head) {
 //         if (!head || !head->next) {
 //             return head;
 //         }
-//         ListNode *prev = nullptr;
-//         ListNode *curr = head;
-//         ListNode *nxt = nullptr;
-//         while (curr != nullptr) {
-//             nxt = curr->next;
-//             curr->next = prev;
-//             prev = curr;
-//             curr = nxt;
-//         }
-//         return prev;
-//     }
-//     bool isPalindrome(ListNode* head) {
-//         if (!head || !head->next) {
-//             return true;
-//         }
-//         ListNode *fast = head;
 //         ListNode *slow = head;
+//         ListNode *fast = head;
 //         ListNode *prev = nullptr;
 //         while (fast && fast->next) {
 //             fast = fast->next->next;
+//             ListNode *temp = slow->next;
+//             slow->next = prev;
 //             prev = slow;
+//             slow = temp;
+//         }
+//         if (fast) {
 //             slow = slow->next;
 //         }
-//         prev->next = nullptr;
-//         // if (fast) {
-//         //     slow = slow->next;
-//         // }
-//         slow = reverse(slow);
-//         prev = head;
-//         while (prev) {
-//             if (prev->val == slow->val) {
-//                 prev = prev->next;
-//                 slow = slow->next;
-//             } else {
+//         while (prev && slow) {
+//             if (prev->val != slow->val) {
 //                 return false;
 //             }
+//             prev = prev->next;
+//             slow = slow->next;
 //         }
 //         return true;
 //     }
 // };
 
-// // Using Vector
+// // two pass solution 
 // // class Solution {
 // // public:
-// //     bool isPalindrome(ListNode* head) {
-// //         vector<int> vec;
-// //         ListNode *temp = head;
-// //         while (temp != nullptr) {
-// //             vec.push_back(temp->val);
-// //             temp = temp->next;
+// //     ListNode *reverse(ListNode* head) {
+// //         if (!head || !head->next) {
+// //             return head;
 // //         }
-// //         temp = head;
-// //         while (temp != nullptr) {
-// //             if (vec.back() == temp->val) {
-// //                 temp = temp->next;
-// //                 vec.pop_back();
+// //         ListNode *prev = nullptr;
+// //         ListNode *curr = head;
+// //         ListNode *nxt = nullptr;
+// //         while (curr != nullptr) {
+// //             nxt = curr->next;
+// //             curr->next = prev;
+// //             prev = curr;
+// //             curr = nxt;
+// //         }
+// //         return prev;
+// //     }
+// //     bool isPalindrome(ListNode* head) {
+// //         if (!head || !head->next) {
+// //             return true;
+// //         }
+// //         ListNode *fast = head;
+// //         ListNode *slow = head;
+// //         ListNode *prev = nullptr;
+// //         while (fast && fast->next) {
+// //             fast = fast->next->next;
+// //             prev = slow;
+// //             slow = slow->next;
+// //         }
+// //         prev->next = nullptr;
+// //         // if (fast) {
+// //         //     slow = slow->next;
+// //         // }
+// //         slow = reverse(slow);
+// //         prev = head;
+// //         while (prev) {
+// //             if (prev->val == slow->val) {
+// //                 prev = prev->next;
+// //                 slow = slow->next;
 // //             } else {
 // //                 return false;
 // //             }
@@ -111,21 +108,21 @@ public:
 // //     }
 // // };
 
-// // // // Using Stack
+// // // Using Vector
 // // // class Solution {
 // // // public:
 // // //     bool isPalindrome(ListNode* head) {
-// // //         stack<int> st;
-// // //         ListNode* temp = head;
+// // //         vector<int> vec;
+// // //         ListNode *temp = head;
 // // //         while (temp != nullptr) {
-// // //             st.push(temp->val);
+// // //             vec.push_back(temp->val);
 // // //             temp = temp->next;
 // // //         }
 // // //         temp = head;
 // // //         while (temp != nullptr) {
-// // //             if (temp->val == st.top()) {
+// // //             if (vec.back() == temp->val) {
 // // //                 temp = temp->next;
-// // //                 st.pop();
+// // //                 vec.pop_back();
 // // //             } else {
 // // //                 return false;
 // // //             }
@@ -133,3 +130,26 @@ public:
 // // //         return true;
 // // //     }
 // // // };
+
+// // // // // Using Stack
+// // // // class Solution {
+// // // // public:
+// // // //     bool isPalindrome(ListNode* head) {
+// // // //         stack<int> st;
+// // // //         ListNode* temp = head;
+// // // //         while (temp != nullptr) {
+// // // //             st.push(temp->val);
+// // // //             temp = temp->next;
+// // // //         }
+// // // //         temp = head;
+// // // //         while (temp != nullptr) {
+// // // //             if (temp->val == st.top()) {
+// // // //                 temp = temp->next;
+// // // //                 st.pop();
+// // // //             } else {
+// // // //                 return false;
+// // // //             }
+// // // //         }
+// // // //         return true;
+// // // //     }
+// // // // };
