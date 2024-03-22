@@ -13,6 +13,9 @@
 class Solution {
 public:
     ListNode *reverse(ListNode* head) {
+        if (!head || !head->next) {
+            return head;
+        }
         ListNode *prev = nullptr;
         ListNode *curr = head;
         ListNode *nxt = nullptr;
@@ -25,6 +28,9 @@ public:
         return prev;
     }
     bool isPalindrome(ListNode* head) {
+        if (!head || !head->next) {
+            return true;
+        }
         ListNode *fast = head;
         ListNode *slow = head;
         ListNode *prev = nullptr;
@@ -34,9 +40,9 @@ public:
             slow = slow->next;
         }
         prev->next = nullptr;
-        if (fast) {
-            slow = slow->next;
-        }
+        // if (fast) {
+        //     slow = slow->next;
+        // }
         slow = reverse(slow);
         prev = head;
         while (prev) {
