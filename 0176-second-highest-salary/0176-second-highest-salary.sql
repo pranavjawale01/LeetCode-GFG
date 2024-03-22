@@ -1,7 +1,7 @@
 # Write your MySQL query statement below
 SELECT 
     IFNULL(
-        (SELECT salary AS SecondHighestSalary
+        (SELECT DISTINCT salary AS SecondHighestSalary
          FROM Employee
          ORDER BY salary DESC
          LIMIT 1 OFFSET 1),
