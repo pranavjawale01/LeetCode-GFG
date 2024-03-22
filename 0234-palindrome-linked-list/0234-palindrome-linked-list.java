@@ -29,7 +29,7 @@ class Solution {
     }
 }
 
-// two pass solution
+// one pass solution
 // class Solution {
 //     public boolean isPalindrome(ListNode head) {
 //         if (head == null || head.next == null) {
