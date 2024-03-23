@@ -1,4 +1,4 @@
-# Write your MySQL query statement below
+/* Write your PL/SQL query statement below */
 SELECT 
     sell_date, 
     COUNT(DISTINCT product) AS num_sold, 
