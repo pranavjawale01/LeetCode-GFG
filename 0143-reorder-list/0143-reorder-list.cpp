@@ -10,59 +10,83 @@
  */
 class Solution {
 public:
-    ListNode *reverse(ListNode *head) {
-        if (head == nullptr || head->next == nullptr) {
-            return head;
-        }
-        ListNode *last = reverse(head->next);
-        head->next->next = head;
-        head->next = nullptr;
-        return last;
-    }
     void reorderList(ListNode* head) {
-        ListNode *slow = head, *fast = head;
-        while (fast && fast->next) {
-            slow = slow->next;
-            fast = fast->next->next;
-        }
-        ListNode *rev= reverse(slow);
+        stack<ListNode*> st;
         ListNode *curr = head;
-        while (rev->next != nullptr) {
-            ListNode *tempcurr = curr->next;
-            curr->next = rev;
-
-            ListNode *temprev = rev->next;
-            rev->next = tempcurr;
-
-            curr = tempcurr;
-            rev = temprev;
+        while (curr) {
+            st.push(curr);
+            curr = curr->next;
         }
+        int k = st.size() / 2;
+        curr = head;
+        while (k--) {
+            ListNode *topNode = st.top();
+            st.pop();
+
+            ListNode *temp = curr->next;
+            curr->next = topNode;
+            topNode->next = temp;
+            curr = temp;
+        }
+        curr->next = nullptr;
     }
 };
 
 // class Solution {
 // public:
+//     ListNode *reverse(ListNode *head) {
+//         if (head == nullptr || head->next == nullptr) {
+//             return head;
+//         }
+//         ListNode *last = reverse(head->next);
+//         head->next->next = head;
+//         head->next = nullptr;
+//         return last;
+//     }
 //     void reorderList(ListNode* head) {
-//         if (!head || !head->next) {
-//             return;
+//         ListNode *slow = head, *fast = head;
+//         while (fast && fast->next) {
+//             slow = slow->next;
+//             fast = fast->next->next;
 //         }
-//         ListNode *temp = head;
-//         vector<int> arr;
-//         while (temp) {
-//             arr.push_back(temp->val);
-//             temp = temp->next;
-//         }
-//         int n = arr.size();
-//         temp = head;
-//         int i = 0;
-//         while (temp && temp->next) {
-//             temp->val = arr[i];
-//             temp->next->val  = arr[n - i - 1];
-//             temp = temp->next->next;
-//             i++;
-//         }
-//         if (n % 2 != 0) {
-//             temp->val = arr[(n) / 2];
+//         ListNode *rev= reverse(slow);
+//         ListNode *curr = head;
+//         while (rev->next != nullptr) {
+//             ListNode *tempcurr = curr->next;
+//             curr->next = rev;
+
+//             ListNode *temprev = rev->next;
+//             rev->next = tempcurr;
+
+//             curr = tempcurr;
+//             rev = temprev;
 //         }
 //     }
 // };
+
+// // class Solution {
+// // public:
+// //     void reorderList(ListNode* head) {
+// //         if (!head || !head->next) {
+// //             return;
+// //         }
+// //         ListNode *temp = head;
+// //         vector<int> arr;
+// //         while (temp) {
+// //             arr.push_back(temp->val);
+// //             temp = temp->next;
+// //         }
+// //         int n = arr.size();
+// //         temp = head;
+// //         int i = 0;
+// //         while (temp && temp->next) {
+// //             temp->val = arr[i];
+// //             temp->next->val  = arr[n - i - 1];
+// //             temp = temp->next->next;
+// //             i++;
+// //         }
+// //         if (n % 2 != 0) {
+// //             temp->val = arr[(n) / 2];
+// //         }
+// //     }
+// // };
