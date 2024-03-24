@@ -1,8 +1,8 @@
-# Write your MySQL query statement below
-SELECT p.product_name, SUM(o.unit) AS unit
-FROM Products p
-JOIN Orders o
-ON p.product_id = o.product_id
-WHERE o.order_date LIKE '2020-02%'
-GROUP BY 1
+/* Write your PL/SQL query statement below */
+SELECT p.product_name, SUM(o.unit) unit 
+FROM Products p, Orders o
+WHERE p.product_id = o.product_id
+AND o.order_date >= to_date('2020-02-01', 'YYYY-MM-DD')
+AND o.order_date <= to_date('2020-02-29', 'YYYY-MM-DD')
+GROUP BY p.product_name
 HAVING SUM(o.unit) >= 100
