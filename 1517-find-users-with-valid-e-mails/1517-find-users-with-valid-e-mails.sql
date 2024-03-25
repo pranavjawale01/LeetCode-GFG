@@ -1,4 +1,4 @@
-/* Write your PL/SQL query statement below */
-SELECT *
+-- Write your PostgreSQL query statement below
+SELECT * 
 FROM Users
-WHERE REGEXP_LIKE (mail, '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode[.]com$')
+WHERE regexp_like(mail, '^[A-Za-z]{1}[A-Za-z0-9_.-]*@leetcode[.]com$');
