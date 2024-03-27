@@ -5,10 +5,11 @@ public:
         for (int i = 0; i < n; i++) {
             int mul = 1;
             for (int j = i; j < n; j++) {
-                mul *= nums[j];
-                if (mul < k) {
-                    count++;
+                if (mul * nums[j] >= k) {
+                    break;
                 }
+                mul *= nums[j];
+                count++;
             }
         }
         return count;
