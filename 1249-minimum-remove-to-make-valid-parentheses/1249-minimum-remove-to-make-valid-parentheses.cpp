@@ -1,30 +1,66 @@
 class Solution {
 public:
     string minRemoveToMakeValid(string s) {
-        stack<int> st;
+        int open = 0;
         int n = s.length();
-        unordered_set<int> remove_idx;
-        for (int i = 0; i < n; i++) {
-            if (s[i] == '(') {
-                st.push(i);
-            } else if (s[i] == ')') {
-                if (st.empty()) {
-                    remove_idx.insert(i);
-                } else {
-                    st.pop();
-                }
-            }
-        }
-        while (!st.empty()) {
-            remove_idx.insert(st.top());
-            st.pop();
-        }
         string ans = "";
         for (int i = 0; i < n; i++) {
-            if (remove_idx.find(i) == remove_idx.end()) {
+            if (s[i] >= 'a' && s[i] <= 'z') {
+                ans.push_back(s[i]);
+            } else if (s[i] == '(') {
+                open++;
+                ans.push_back(s[i]);
+            } else if (open > 0) {
+                open--;
                 ans.push_back(s[i]);
             }
         }
-        return ans;
+        string result = "";
+        int close = 0;
+        n = ans.length();
+        for (int i = n - 1; i >= 0; i--) {
+            if (ans[i] >= 'a' && ans[i] <= 'z') {
+                result.push_back(ans[i]);
+            } else if (ans[i] == ')') {
+                close++;
+                result.push_back(ans[i]);
+            } else if (close > 0) {
+                close--;
+                result.push_back(ans[i]);
+            }
+        }
+        reverse(begin(result), end(result));
+        return result;
     }
 };
+
+// class Solution {
+// public:
+//     string minRemoveToMakeValid(string s) {
+//         stack<int> st;
+//         int n = s.length();
+//         unordered_set<int> remove_idx;
+//         for (int i = 0; i < n; i++) {
+//             if (s[i] == '(') {
+//                 st.push(i);
+//             } else if (s[i] == ')') {
+//                 if (st.empty()) {
+//                     remove_idx.insert(i);
+//                 } else {
+//                     st.pop();
+//                 }
+//             }
+//         }
+//         while (!st.empty()) {
+//             remove_idx.insert(st.top());
+//             st.pop();
+//         }
+//         string ans = "";
+//         for (int i = 0; i < n; i++) {
+//             if (remove_idx.find(i) == remove_idx.end()) {
+//                 ans.push_back(s[i]);
+//             }
+//         }
+//         return ans;
+//     }
+// };
