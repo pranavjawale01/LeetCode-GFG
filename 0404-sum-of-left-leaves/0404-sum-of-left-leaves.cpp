@@ -11,32 +11,18 @@
  */
 class Solution {
 public:
-    int sumOfLeftLeaves(TreeNode* root) {
+    int solve(TreeNode* root, TreeNode* parent) {
         if (root == nullptr) {
             return 0;
         }
-        queue<TreeNode*> q;
-        q.push(root);
-        bool flag = true;
-        int ans = 0;
-        while (!q.empty()) {
-            int n = q.size();
-            flag = true;
-            for (int i = 0; i < n; i++) {
-                TreeNode* temp = q.front();
-                if (flag) {
-                    flag = false;
-                    ans += temp->val;
-                }
-                if (temp->left) {
-                    q.push(temp->left);
-                }
-                if (temp->right) {
-                    q.push(temp->right);
-                }
-                q.pop();
+        if (root->left == nullptr && root->right == nullptr) {
+            if (parent != nullptr && parent->left == root) {
+                return root->val;
             }
         }
-        return ans - root->val;
+        return solve(root->left, root) + solve(root->right, root);
+    }
+    int sumOfLeftLeaves(TreeNode* root) {
+        return solve(root, nullptr);
     }
 };
