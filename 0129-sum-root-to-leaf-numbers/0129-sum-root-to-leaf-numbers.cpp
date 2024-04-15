@@ -12,10 +12,13 @@
 class Solution {
 public:
     int solve(TreeNode* root, int ans) {
-        if (root->left == nullptr && root->right == nullptr) {
-            return ans * 10 + root->val;
+        if (root == nullptr) {
+            return 0;
         }
         ans = ans * 10 + root->val;
+        if (root->left == nullptr && root->right == nullptr) {
+            return ans;
+        }
         return solve(root->left, ans) + solve(root->right, ans);
     }
     int sumNumbers(TreeNode* root) {
