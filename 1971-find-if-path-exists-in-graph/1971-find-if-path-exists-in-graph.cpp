@@ -1,21 +1,29 @@
 class Solution {
 public:
-    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
-        sort(edges.begin(), edges.end());
-        for (int i = 0; i < n - 1; i++) {
-            if (edges[i][1] == destination && edges[i][0] == source) {
+    bool check(unordered_map<int, vector<int>> &mp, int s, int d, vector<bool> &visited) {
+        if (s == d) {
+            return true;
+        }
+        if (visited[s]) {
+            return false;
+        }
+        visited[s] = true;
+        for (auto &node : mp[s]) {
+            if (check(mp, node, d, visited)) {
                 return true;
-            }
-            if (edges[i][0] == source) {
-                while (i < n - 1) {
-                    if (edges[i][1] == destination && edges[i][0] == edges[i-1][1]) {
-                        return true;
-                    }
-                    i++;
-                }
-                return false;
             }
         }
         return false;
+    }
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+        unordered_map<int, vector<int>> mp;
+        for (vector<int> &edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            mp[u].push_back(v);
+            mp[v].push_back(u);
+        }
+        vector<bool> visited(n, false);
+        return check(mp, source, destination, visited);
     }
 };
