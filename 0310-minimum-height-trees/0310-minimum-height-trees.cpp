@@ -1,6 +1,9 @@
 class Solution {
 public:
     vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
+        if (n == 1) {
+            return {0};
+        }
         unordered_map<int, vector<int>> adj;
         vector<int> indegree(n);
         for (auto &edge : edges) {
