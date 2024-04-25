@@ -3,17 +3,17 @@ public:
     int longestIdealString(string s, int k) {
         vector<int> dp(26, 0);
         int n = s.length();
-        int ans = INT_MIN;
+        int ans = 0;
         for (int i = 0; i < n; i++) {
             int idx = s[i] - 'a';
             int left = max(0, idx - k);
             int right = min(25, idx + k);
-            int longest = INT_MIN;
+            int longest = 0;
             for (int j = left; j <= right; j++) {
                 longest = max(longest, dp[j]);
             }
-            dp[i] = longest + 1;
-            ans = max(ans, dp[i]);
+            dp[idx] = max(dp[idx], longest + 1);
+            ans = max(ans, dp[idx]);
         }
         return ans;
     }
