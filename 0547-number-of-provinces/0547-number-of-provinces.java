@@ -1,4 +1,4 @@
-public class Solution {
+class Solution {
     public void DFS(Map<Integer, List<Integer>> adj, int i, boolean[] visited) {
         visited[i] = true;
         for (int v : adj.get(i)) {
@@ -17,7 +17,13 @@ public class Solution {
             adj.put(i, new ArrayList<>());
             for (int j = 0; j < n; j++) {
                 if (isConnected[i][j] == 1) {
+                    if (!adj.containsKey(i)) {
+                        adj.put(i, new ArrayList<>());
+                    }
                     adj.get(i).add(j);
+                    if (!adj.containsKey(j)) {
+                        adj.put(j, new ArrayList<>());
+                    }
                     adj.get(j).add(i);
                 }
             }
