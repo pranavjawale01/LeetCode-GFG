@@ -1,6 +1,7 @@
-<h2><a href="https://leetcode.com/problems/product-sales-analysis-i/">1068. Product Sales Analysis I</a></h2><h3>Easy</h3><hr><div class="sql-schema-wrapper__3VBi"><a class="sql-schema-link__3cEg">SQL Schema<svg viewBox="0 0 24 24" width="1em" height="1em" class="icon__1Md2"><path fill-rule="evenodd" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></a></div><div><p>Table: <code>Sales</code></p>
+<h2><a href="https://leetcode.com/problems/product-sales-analysis-i">1068. Product Sales Analysis I</a></h2><h3>Easy</h3><hr><p>Table: <code>Sales</code></p>
 
-<pre>+-------------+-------+
+<pre>
++-------------+-------+
 | Column Name | Type  |
 +-------------+-------+
 | sale_id     | int   |
@@ -19,7 +20,8 @@ Note that the price is per unit.
 
 <p>Table: <code>Product</code></p>
 
-<pre>+--------------+---------+
+<pre>
++--------------+---------+
 | Column Name  | Type    |
 +--------------+---------+
 | product_id   | int     |
@@ -40,7 +42,8 @@ Each row of this table indicates the product name of each product.
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
 
-<pre><strong>Input:</strong> 
+<pre>
+<strong>Input:</strong> 
 Sales table:
 +---------+------------+------+----------+-------+
 | sale_id | product_id | year | quantity | price |
@@ -70,4 +73,3 @@ From sale_id = 1, we can conclude that Nokia was sold for 5000 in the year 2008.
 From sale_id = 2, we can conclude that Nokia was sold for 5000 in the year 2009.
 From sale_id = 7, we can conclude that Apple was sold for 9000 in the year 2011.
 </pre>
-</div>
