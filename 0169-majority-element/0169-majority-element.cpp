@@ -1,7 +1,7 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        int count = 1, n = nums.size(), element = nums[0];
+        int element = nums[0], count = 1, n = nums.size();
         for (int i = 1; i < n; i++) {
             if (count == 0) {
                 element = nums[i];
