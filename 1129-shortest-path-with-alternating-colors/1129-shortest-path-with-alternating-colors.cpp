@@ -1,39 +1,35 @@
 class Solution {
 public:
-    int bfs(vector<vector<pair<int, int>>> &adj, int dest) {
-        int res = INT_MAX;
-        queue<vector<int>> q;
-        q.push({0, 0, 0});
-        while (!q.empty()) {
-            int curr = q.front()[0], color = q.front()[1], step = q.front()[2];
-            q.pop();
-
-            for (int i = 0; i < adj[curr].size(); i++) {
-                if (adj[curr][i].first != -1 && adj[curr][i].second != color) {
-                    q.push({adj[curr][i].first , adj[curr][i].second, step + 1});
-                    if (adj[curr][i].first == dest) {
-                        res = min(res, step + 1);
-                    }
-                    adj[curr][i] = {-1, -1};
-                }
-            }
-        }
-        return res == INT_MAX ? -1 : res;
-    }
     vector<int> shortestAlternatingPaths(int n, vector<vector<int>>& redEdges, vector<vector<int>>& blueEdges) {
         vector<vector<pair<int, int>>> adj(n);
-        vector<int> ans;
-        ans.push_back(0);
+        for (auto &it : redEdges) {
+            adj[it[0]].push_back({it[1], 0});
+        }
+        for (auto &it : blueEdges) {
+            adj[it[0]].push_back({it[1], 1});
+        }
+        vector<int> ans(n , -1);
+        vector<vector<bool>> visited(n, vector<bool>(2));
+        queue<vector<int>> q;
+        q.push({0, 0, -1}); // node, steps, color
+        visited[0][0] = true;
+        visited[0][1] = true;
+        ans[0] = 0;
+        while (!q.empty()) {
+            vector<int> curr = q.front();
+            q.pop();
+            int node = curr[0], steps = curr[1], preColor = curr[2];
 
-        for(auto x: redEdges)
-            adj[x[0]].push_back({x[1], 1});
-            
-        for(auto x: blueEdges)
-            adj[x[0]].push_back({x[1], 2});
-
-        for(int i=1; i<n; i++)
-            ans.push_back(bfs(adj, i));
-
+            for (auto &[neighbor, color] : adj[node]) {
+                if (!visited[neighbor][color] && color != preColor) {
+                    visited[neighbor][color] = true;
+                    q.push({neighbor, steps + 1, color});
+                    if (ans[neighbor] == -1) {
+                        ans[neighbor] = steps + 1;
+                    }
+                }
+            } 
+        }
         return ans;
     }
 };
