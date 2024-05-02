@@ -1,17 +1,33 @@
 class Solution {
     public int findMaxK(int[] nums) {
-        Set<Integer> st = new HashSet<>();
-        int ans = -1;
+        int[] arr = new int[2001];
+        Arrays.fill(arr, 0);
+        int result = -1;
         for (int num : nums) {
-            if (st.contains(-num)) {
-                ans = Math.max(ans, Math.abs(num));
-            } else {
-                st.add(num);
-            }
+            if (arr[-num + 1000] == 1) {
+                result = Math.max(result, Math.abs(num));
+            } 
+            arr[num + 1000] = 1;
         }
-        return ans;
+        return result;
     }
 }
+
+
+// class Solution {
+//     public int findMaxK(int[] nums) {
+//         Set<Integer> st = new HashSet<>();
+//         int ans = -1;
+//         for (int num : nums) {
+//             if (st.contains(-num)) {
+//                 ans = Math.max(ans, Math.abs(num));
+//             } else {
+//                 st.add(num);
+//             }
+//         }
+//         return ans;
+//     }
+// }
 
 
 // class Solution {
