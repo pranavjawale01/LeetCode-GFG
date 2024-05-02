@@ -1,13 +1,25 @@
 class Solution:
     def findMaxK(self, nums: List[int]) -> int:
-        st = set()
-        ans = -1
+        arr = [0] * 2001
+        result = -1
         for num in nums:
-            if (-num) in st:
-                ans = max(ans, abs(num))
-            else:
-                st.add(num)
-        return ans
+            if arr[-num + 1000] == 1:
+                result = max(result, abs(num))
+            arr[num + 1000] = 1
+        return result
+
+        
+
+# class Solution:
+#     def findMaxK(self, nums: List[int]) -> int:
+#         st = set()
+#         ans = -1
+#         for num in nums:
+#             if (-num) in st:
+#                 ans = max(ans, abs(num))
+#             else:
+#                 st.add(num)
+#         return ans
 
 
 # class Solution:
