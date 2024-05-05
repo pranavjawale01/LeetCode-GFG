@@ -1,14 +1,17 @@
 class Solution {
 public:
-    int jump(vector<int>& nums) {
-        int maxReach = 0, steps = 0, lastJump = 0;
-        for (int i = 0; i < nums.size() - 1; i++) {
-            maxReach = max(maxReach, i + nums[i]);
-            if (i == lastJump) {
-                lastJump = maxReach;
-                steps++;
-            }
+    int solve(vector<int>& nums, int index) {
+        if (index >= nums.size() - 1) {
+            return 0;
         }
-        return steps;
+        int count = INT_MAX - 1;
+        for (int i = 1; i <= nums[index]; i++) {
+            count = min(count, 1 + solve(nums, index + i));
+        }
+        return count;
+    }
+    
+    int jump(vector<int>& nums) {
+        return solve(nums, 0);
     }
 };
