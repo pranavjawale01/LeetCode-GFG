@@ -82,15 +82,13 @@ class Solution
     void deleteNode(Node *del_node)
     {
        // Your code here
-       Node *temp1 = del_node;
-       Node *temp2 = del_node->next;
-       
-       temp1->data = temp1->data + temp2->data;
-       temp2->data = temp1->data - temp2->data;
-       temp1->data = temp1->data - temp2->data;
-       
-       temp1->next = temp2->next;
-       temp2->next = nullptr;
+       Node *prev = nullptr;
+       while (del_node && del_node->next) {
+           del_node->data = del_node->next->data;
+           prev = del_node;
+           del_node = del_node->next;
+       }
+       prev->next = nullptr;
     }
 
 };
