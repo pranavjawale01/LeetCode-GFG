@@ -4,20 +4,42 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def solve(self, head: Optional[ListNode]) -> int:
-        if not head:
-            return 0
-        carry = self.solve(head.next)
-        newVal = (head.val) * 2 + carry
-        head.val = newVal % 10
-        return newVal // 10
     def doubleIt(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        lastCarry = self.solve(head)
-        if lastCarry > 0:
-            newHead = ListNode(lastCarry)
-            newHead.next = head
-            return newHead
-        return head       
+        curr = head
+        prev = None
+
+        while curr:
+            newVal = curr.val * 2
+            if newVal < 10:
+                curr.val = newVal
+            elif prev:
+                curr.val = newVal % 10
+                prev.val += 1
+            else:
+                newHead = ListNode(1)
+                newHead.next = curr
+                curr.val = newVal % 10
+                head = newHead
+            prev = curr
+            curr = curr.next
+        return head
+
+
+# class Solution:
+#     def solve(self, head: Optional[ListNode]) -> int:
+#         if not head:
+#             return 0
+#         carry = self.solve(head.next)
+#         newVal = (head.val) * 2 + carry
+#         head.val = newVal % 10
+#         return newVal // 10
+#     def doubleIt(self, head: Optional[ListNode]) -> Optional[ListNode]:
+#         lastCarry = self.solve(head)
+#         if lastCarry > 0:
+#             newHead = ListNode(lastCarry)
+#             newHead.next = head
+#             return newHead
+#         return head       
 
       
 
