@@ -12,18 +12,46 @@
 
 class Solution {
     public ListNode removeNodes(ListNode head) {
-        if (head == null || head.next == null) {
-            return head;
+        ListNode curr = head;
+        Stack<ListNode> st = new Stack<>();
+        while (curr != null) {
+            st.push(curr);
+            curr = curr.next;
         }
-        ListNode nextNode = removeNodes(head.next);
-        if (head.val < nextNode.val) {
-            head = null;
-            return nextNode;
+        curr = st.pop();
+        int maxNode = curr.val;
+        ListNode resultHead = new ListNode(curr.val);
+        while (!st.empty()) {
+            curr = st.pop();
+            if (curr.val < maxNode) {
+                continue;
+            } else {
+                ListNode newNode = new ListNode(curr.val);
+                newNode.next = resultHead;
+                resultHead = newNode;
+                maxNode = curr.val;
+            }
         }
-        head.next = nextNode;
-        return head;
+        return resultHead;
     }
 }
+
+
+
+// class Solution {
+//     public ListNode removeNodes(ListNode head) {
+//         if (head == null || head.next == null) {
+//             return head;
+//         }
+//         ListNode nextNode = removeNodes(head.next);
+//         if (head.val < nextNode.val) {
+//             head = null;
+//             return nextNode;
+//         }
+//         head.next = nextNode;
+//         return head;
+//     }
+// }
 
 
 
