@@ -3,8 +3,14 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+
+
 class Solution:
     def doubleIt(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head.val >= 5:
+            newHead = ListNode(0)
+            newHead.next = head
+            head = newHead
         curr = head
         prev = None
 
@@ -23,6 +29,28 @@ class Solution:
             prev = curr
             curr = curr.next
         return head
+
+
+# class Solution:
+#     def doubleIt(self, head: Optional[ListNode]) -> Optional[ListNode]:
+#         curr = head
+#         prev = None
+
+#         while curr:
+#             newVal = curr.val * 2
+#             if newVal < 10:
+#                 curr.val = newVal
+#             elif prev:
+#                 curr.val = newVal % 10
+#                 prev.val += 1
+#             else:
+#                 newHead = ListNode(1)
+#                 newHead.next = curr
+#                 curr.val = newVal % 10
+#                 head = newHead
+#             prev = curr
+#             curr = curr.next
+#         return head
 
 
 # class Solution:
