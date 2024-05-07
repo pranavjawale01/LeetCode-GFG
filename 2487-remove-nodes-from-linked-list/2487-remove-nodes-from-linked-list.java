@@ -11,30 +11,69 @@
 
 
 class Solution {
-    public ListNode removeNodes(ListNode head) {
+    public ListNode reverse(ListNode head) {
+        ListNode prev = null;
         ListNode curr = head;
-        Stack<ListNode> st = new Stack<>();
         while (curr != null) {
-            st.push(curr);
-            curr = curr.next;
+            ListNode nxt = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nxt;
         }
-        curr = st.pop();
-        int maxNode = curr.val;
-        ListNode resultHead = new ListNode(curr.val);
-        while (!st.empty()) {
-            curr = st.pop();
-            if (curr.val < maxNode) {
-                continue;
-            } else {
-                ListNode newNode = new ListNode(curr.val);
-                newNode.next = resultHead;
-                resultHead = newNode;
-                maxNode = curr.val;
+        return prev;
+    }
+
+    public ListNode removeNodes(ListNode head) {
+        if (head == null) return null;
+        
+        head = reverse(head);
+        Stack<Integer> st = new Stack<>();
+        
+        ListNode current = head;
+        while (current != null) {
+            if (st.isEmpty() || st.peek() <= current.val) {
+                st.push(current.val);
             }
+            current = current.next;
         }
-        return resultHead;
+        
+        ListNode newHead = null;
+        while (!st.isEmpty()) {
+            ListNode temp = new ListNode(st.pop());
+            temp.next = newHead;
+            newHead = temp;
+        }
+        
+        return reverse(newHead);
     }
 }
+
+
+// class Solution {
+//     public ListNode removeNodes(ListNode head) {
+//         ListNode curr = head;
+//         Stack<ListNode> st = new Stack<>();
+//         while (curr != null) {
+//             st.push(curr);
+//             curr = curr.next;
+//         }
+//         curr = st.pop();
+//         int maxNode = curr.val;
+//         ListNode resultHead = new ListNode(curr.val);
+//         while (!st.empty()) {
+//             curr = st.pop();
+//             if (curr.val < maxNode) {
+//                 continue;
+//             } else {
+//                 ListNode newNode = new ListNode(curr.val);
+//                 newNode.next = resultHead;
+//                 resultHead = newNode;
+//                 maxNode = curr.val;
+//             }
+//         }
+//         return resultHead;
+//     }
+// }
 
 
 
