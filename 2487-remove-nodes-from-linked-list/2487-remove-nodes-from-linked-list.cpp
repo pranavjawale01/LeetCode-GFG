@@ -10,19 +10,53 @@
  */
 class Solution {
 public:
-    ListNode* removeNodes(ListNode* head) {
-        if (head == nullptr || head->next == nullptr) {
+    ListNode *reverse(ListNode *head) {
+        if (!head || !head->next) {
             return head;
         }
-        ListNode *nextNode = removeNodes(head->next);
-        if (head->val < nextNode->val) {
-            delete head;
-            return nextNode;
+        ListNode *last = reverse(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+        return last;
+    }
+    ListNode* removeNodes(ListNode* head) {
+        head = reverse(head);
+        int maxNode = -1;
+        ListNode *prev = nullptr;
+        ListNode *curr = head;
+        while (curr) {
+            maxNode = max(maxNode, curr->val);
+            if (curr->val < maxNode) {
+                prev->next = curr->next;
+                ListNode *temp = curr;
+                curr = curr->next;
+                delete temp;
+            } else {
+                prev = curr;
+                curr = curr->next;
+            }
         }
-        head->next = nextNode;
-        return head;
+        return reverse(head);
     }
 };
+
+
+
+// class Solution {
+// public:
+//     ListNode* removeNodes(ListNode* head) {
+//         if (head == nullptr || head->next == nullptr) {
+//             return head;
+//         }
+//         ListNode *nextNode = removeNodes(head->next);
+//         if (head->val < nextNode->val) {
+//             delete head;
+//             return nextNode;
+//         }
+//         head->next = nextNode;
+//         return head;
+//     }
+// };
 
 
 
@@ -54,6 +88,7 @@ public:
 //         return resulthead;
 //     }
 // };
+
 
 
 // class Solution {
