@@ -8,28 +8,55 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-
 class Solution {
 public:
-    int solve(ListNode* head) {
-        if (!head) {
-            return 0;
-        }
-        int carry = solve(head->next);
-        int newVal = (head->val) * 2 + carry;
-        head->val = newVal % 10;
-        return newVal / 10;
-    }
     ListNode* doubleIt(ListNode* head) {
-        int lastCarry = solve(head);
-        if (lastCarry > 0) {
-            ListNode *newhead = new ListNode(lastCarry);
-            newhead->next = head;
-            return newhead;
+        ListNode *curr = head;
+        ListNode *prev = nullptr;
+
+        while (curr != nullptr) {
+            int newVal = curr->val * 2;
+            if (newVal < 10) {
+                curr->val = newVal;
+            } else if (prev != nullptr) {
+                curr->val = newVal % 10;
+                prev->val += 1;
+            } else {
+                ListNode *newHead = new ListNode(1);
+                newHead->next = curr;
+                curr->val = newVal % 10;
+                head = newHead;
+            }
+            prev = curr;
+            curr = curr->next;
         }
         return head;
     }
 };
+
+
+
+// class Solution {
+// public:
+//     int solve(ListNode* head) {
+//         if (!head) {
+//             return 0;
+//         }
+//         int carry = solve(head->next);
+//         int newVal = (head->val) * 2 + carry;
+//         head->val = newVal % 10;
+//         return newVal / 10;
+//     }
+//     ListNode* doubleIt(ListNode* head) {
+//         int lastCarry = solve(head);
+//         if (lastCarry > 0) {
+//             ListNode *newhead = new ListNode(lastCarry);
+//             newhead->next = head;
+//             return newhead;
+//         }
+//         return head;
+//     }
+// };
 
 
 
