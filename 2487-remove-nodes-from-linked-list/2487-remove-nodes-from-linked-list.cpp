@@ -8,43 +8,90 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-
 class Solution {
 public:
-    ListNode* reverse(ListNode* head) {
-        ListNode* prev = nullptr;
-        ListNode* curr = head;
-        while (curr) {
-            ListNode* nxt = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = nxt;
-        }
-        return prev;
-    }
-
     ListNode* removeNodes(ListNode* head) {
-        if (!head) return nullptr;
-        
-        head = reverse(head);
-        stack<int> st;
-        
-        ListNode* current = head;
-        while (current) {
-            if (st.empty() || st.top() <= current->val) {
-                st.push(current->val);
-            }
-            current = current->next;
+        if (head == nullptr || head->next == nullptr) {
+            return head;
         }
-        
-        ListNode* newHead = nullptr;
-        while (!st.empty()) {
-            ListNode* temp = new ListNode(st.top());
-            temp->next = newHead;
-            newHead = temp;
-            st.pop();
+        ListNode *nextNode = removeNodes(head->next);
+        if (head->val < nextNode->val) {
+            delete head;
+            return nextNode;
         }
-        
-        return reverse(newHead);
+        head->next = nextNode;
+        return head;
     }
 };
+
+
+
+// class Solution {
+// public:
+//     ListNode* removeNodes(ListNode* head) {
+//         ListNode *curr = head;
+//         stack<ListNode*> st;
+//         while (curr) {
+//             st.push(curr);
+//             curr = curr->next;
+//         }
+//         curr = st.top();
+//         st.pop();
+//         int maxNode = curr->val;
+//         ListNode *resulthead = new ListNode(curr->val);
+//         while (!st.empty()) {
+//             curr = st.top();
+//             st.pop();
+//             if (curr->val < maxNode) {
+//                 continue;
+//             } else {
+//                 ListNode *newNode = new ListNode(curr->val);
+//                 newNode->next = resulthead;
+//                 resulthead = newNode;
+//                 maxNode = curr->val;
+//             }
+//         }
+//         return resulthead;
+//     }
+// };
+
+
+// class Solution {
+// public:
+//     ListNode* reverse(ListNode* head) {
+//         ListNode* prev = nullptr;
+//         ListNode* curr = head;
+//         while (curr) {
+//             ListNode* nxt = curr->next;
+//             curr->next = prev;
+//             prev = curr;
+//             curr = nxt;
+//         }
+//         return prev;
+//     }
+
+//     ListNode* removeNodes(ListNode* head) {
+//         if (!head) return nullptr;
+        
+//         head = reverse(head);
+//         stack<int> st;
+        
+//         ListNode* current = head;
+//         while (current) {
+//             if (st.empty() || st.top() <= current->val) {
+//                 st.push(current->val);
+//             }
+//             current = current->next;
+//         }
+        
+//         ListNode* newHead = nullptr;
+//         while (!st.empty()) {
+//             ListNode* temp = new ListNode(st.top());
+//             temp->next = newHead;
+//             newHead = temp;
+//             st.pop();
+//         }
+        
+//         return reverse(newHead);
+//     }
+// };
