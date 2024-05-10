@@ -3,14 +3,15 @@ class Solution {
         int i = 0;
         for (int j = 0; j < nums.length; j++) {
             if (nums[j] != 0) {
-                nums[j] = nums[i] + nums[j];
-                nums[i] = nums[j] - nums[i];
-                nums[j] = nums[j] - nums[i];
+                int temp = nums[j];
+                nums[j] = nums[i];
+                nums[i] = temp;
                 i++;
             }
         }
     }
 }
+
 
 // class Solution {
 //     public void moveZeroes(int[] nums) {
