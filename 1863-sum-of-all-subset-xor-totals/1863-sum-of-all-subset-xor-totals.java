@@ -1,27 +1,40 @@
 class Solution {
-    public void solve(int[] nums, int i, List<Integer> currSubset, List<List<Integer>> subsets) {
+    public int solve(int[] nums, int i, int xor) {
         if (i == nums.length) {
-            subsets.add(new ArrayList<>(currSubset));
-            return;
+            return xor;
         }
-        currSubset.add(nums[i]);
-        solve(nums, i+1, currSubset, subsets);
-        currSubset.remove(currSubset.size() - 1);
-        solve(nums, i+1, currSubset, subsets);
+        return solve(nums, i+1, nums[i] ^ xor) + solve(nums, i+1, xor);
     }
 
     public int subsetXORSum(int[] nums) {
-        List<List<Integer>> subsets = new ArrayList<>();
-        List<Integer> currSubset = new ArrayList<>();
-        solve(nums, 0, currSubset, subsets);
-        int result = 0;
-        for (List<Integer> subset : subsets) {
-            int xorSum = 0;
-            for (int num : subset) {
-                xorSum ^= num;
-            }
-            result += xorSum;
-        }
-        return result;
+        return solve(nums, 0, 0);
     }
 }
+
+// class Solution {
+//     public void solve(int[] nums, int i, List<Integer> currSubset, List<List<Integer>> subsets) {
+//         if (i == nums.length) {
+//             subsets.add(new ArrayList<>(currSubset));
+//             return;
+//         }
+//         currSubset.add(nums[i]);
+//         solve(nums, i+1, currSubset, subsets);
+//         currSubset.remove(currSubset.size() - 1);
+//         solve(nums, i+1, currSubset, subsets);
+//     }
+
+//     public int subsetXORSum(int[] nums) {
+//         List<List<Integer>> subsets = new ArrayList<>();
+//         List<Integer> currSubset = new ArrayList<>();
+//         solve(nums, 0, currSubset, subsets);
+//         int result = 0;
+//         for (List<Integer> subset : subsets) {
+//             int xorSum = 0;
+//             for (int num : subset) {
+//                 xorSum ^= num;
+//             }
+//             result += xorSum;
+//         }
+//         return result;
+//     }
+// }
