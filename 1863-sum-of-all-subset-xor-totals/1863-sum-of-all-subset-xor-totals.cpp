@@ -1,16 +1,31 @@
 class Solution {
 public:
-    int solve(vector<int> &nums, int i, int xor_val) {
-        if (i == nums.size()) {
-            return xor_val;
-        }
-        return solve(nums, i+1, nums[i] ^ xor_val) + solve(nums, i+1, xor_val);
-    }
-
     int subsetXORSum(vector<int>& nums) {
-        return solve(nums, 0, 0);
+        int ans = 0;
+        int n = nums.size();
+        for (int &num : nums) {
+            ans |= num;
+        }
+        return ans << (n - 1);
     }
 };
+
+
+
+// class Solution {
+// public:
+//     int solve(vector<int> &nums, int i, int xor_val) {
+//         if (i == nums.size()) {
+//             return xor_val;
+//         }
+//         return solve(nums, i+1, nums[i] ^ xor_val) + solve(nums, i+1, xor_val);
+//     }
+
+//     int subsetXORSum(vector<int>& nums) {
+//         return solve(nums, 0, 0);
+//     }
+// };
+
 
 
 
