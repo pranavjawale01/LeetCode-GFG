@@ -1,11 +1,19 @@
 class Solution:
-    def solve(self, nums, i, xor_val) -> int:
-        if i == len(nums):
-            return xor_val
-        return self.solve(nums, i+1, nums[i] ^ xor_val) + self.solve(nums, i+1, xor_val)
-
     def subsetXORSum(self, nums: List[int]) -> int:
-        return self.solve(nums, 0, 0)
+        ans = 0
+        n = len(nums)
+        for num in nums:
+            ans |= num
+        return ans << n - 1
+
+# class Solution:
+#     def solve(self, nums, i, xor_val) -> int:
+#         if i == len(nums):
+#             return xor_val
+#         return self.solve(nums, i+1, nums[i] ^ xor_val) + self.solve(nums, i+1, xor_val)
+
+#     def subsetXORSum(self, nums: List[int]) -> int:
+#         return self.solve(nums, 0, 0)
 
 
 
