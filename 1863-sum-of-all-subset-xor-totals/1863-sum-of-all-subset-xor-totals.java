@@ -1,15 +1,30 @@
 class Solution {
-    public int solve(int[] nums, int i, int xor) {
-        if (i == nums.length) {
-            return xor;
-        }
-        return solve(nums, i+1, nums[i] ^ xor) + solve(nums, i+1, xor);
-    }
-
     public int subsetXORSum(int[] nums) {
-        return solve(nums, 0, 0);
+        int ans = 0;
+        int n = nums.length;
+        for (int num : nums) {
+            ans |= num;
+        }
+        return ans << (n - 1);
     }
 }
+
+
+// class Solution {
+//     public int solve(int[] nums, int i, int xor) {
+//         if (i == nums.length) {
+//             return xor;
+//         }
+//         return solve(nums, i+1, nums[i] ^ xor) + solve(nums, i+1, xor);
+//     }
+
+//     public int subsetXORSum(int[] nums) {
+//         return solve(nums, 0, 0);
+//     }
+// }
+
+
+
 
 // class Solution {
 //     public void solve(int[] nums, int i, List<Integer> currSubset, List<List<Integer>> subsets) {
