@@ -1,33 +1,76 @@
 class Solution {
 public:
-    bool isPalindrome(string s) {
+    string longestPalindrome(string s) {
         int n = s.length();
-        for (int i = 0; i < n / 2; i++) {
-            if (s[i] != s[n - i - 1]) {
-                return false;
+        if (n == 0) {
+            return "";
+        }
+
+        vector<vector<bool>> dp(n, vector<bool>(n, false));
+        int start = 0;
+        int maxlen = 1;
+
+        for (int i = 0; i < n; i++) {
+            dp[i][i] = true;
+        }
+
+        for (int i = 0; i < n - 1; i++) {
+            if (s[i] == s[i + 1]) {
+                dp[i][i + 1] = true;
+                start = i;
+                maxlen = 2;
             }
         }
-        return true;
-    }
-    
-    string longestPalindrome(string s) {
-        int maxLen = INT_MIN;
-        int n = s.length();
-        int start = -1, end = -1;
-        for (int i = 0; i < n; i++) {
-            for (int j = i; j < n; j++) {
-                if (isPalindrome(s.substr(i, j - i + 1))) {
-                    if (maxLen < j - i + 1) {
-                        maxLen = j - i + 1;
-                        start = i;
-                        end = j;
-                    }
+
+        for (int length = 3; length <= n; length++) {
+            for (int i = 0; i < n - length + 1; i++) {
+                int j = i + length - 1;
+
+                if (s[i] == s[j] && dp[i + 1][j - 1]) {
+                    dp[i][j] = true;
+                    start = i;
+                    maxlen = length;
                 }
             }
         }
-        return (start == -1 || end == -1) ? "" : s.substr(start, maxLen);
+
+        return s.substr(start, maxlen);
     }
 };
+
+
+// TLE
+
+// class Solution {
+// public:
+//     bool isPalindrome(string s) {
+//         int n = s.length();
+//         for (int i = 0; i < n / 2; i++) {
+//             if (s[i] != s[n - i - 1]) {
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+    
+//     string longestPalindrome(string s) {
+//         int maxLen = INT_MIN;
+//         int n = s.length();
+//         int start = -1, end = -1;
+//         for (int i = 0; i < n; i++) {
+//             for (int j = i; j < n; j++) {
+//                 if (isPalindrome(s.substr(i, j - i + 1))) {
+//                     if (maxLen < j - i + 1) {
+//                         maxLen = j - i + 1;
+//                         start = i;
+//                         end = j;
+//                     }
+//                 }
+//             }
+//         }
+//         return (start == -1 || end == -1) ? "" : s.substr(start, maxLen);
+//     }
+// };
 
 
 
