@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool isMonotonic(vector<int>& nums) {
+        int order = 0;
+        for(int i=1;i<nums.size();i++)
+        {
+            if(nums[i]>nums[i-1])
+            {
+                if(order == 0)
+                {
+                    order = 1;
+                }
+                else if(order == -1)
+                {
+                    return false;
+                }
+            }
+            else if(nums[i]<nums[i-1])
+            {
+                if(order == 0)
+                {
+                    order = -1;
+                }
+                else if(order == 1)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};
