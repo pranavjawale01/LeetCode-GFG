@@ -1,0 +1,25 @@
+class Solution {
+    private int[][] dp = new int[1000][1000];
+    private int solve(String s, int start, int end) {
+        if (start == end) {
+            return 1;
+        }
+        if (start > end) {
+            return 0;
+        }
+        if (dp[start][end] != -1) {
+            return dp[start][end];
+        }
+        if (s.charAt(start) == s.charAt(end)) {
+            return dp[start][end] = 2 + solve(s, start+1, end-1);
+        }
+        return dp[start][end] = Math.max(solve(s, start+1, end), solve(s, start, end-1));
+    }
+    public int longestPalindromeSubseq(String s) {
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(dp[i], -1);
+        }
+        return solve(s, 0, s.length()-1);
+    }
+}
