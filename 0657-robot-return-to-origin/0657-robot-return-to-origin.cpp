@@ -1,18 +1,18 @@
 class Solution {
 public:
     bool judgeCircle(string moves) {
-        int dir = 0;
+        int v = 0, h = 0;
         for (char c : moves) {
             if (c == 'U') {
-                dir += 1;
+                v += 1;
             } else if (c == 'D') {
-                dir -= 1;
+                v -= 1;
             } else if (c == 'R') {
-                dir += 2;
+                h += 1;
             } else if (c == 'L') {
-                dir -= 2;
+                h -= 1;
             }
         }
-        return dir == 0;
+        return v == 0 && h == 0;
     }
 };
