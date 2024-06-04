@@ -1,18 +1,20 @@
 class Solution {
 public:
     int longestPalindrome(string s) {
-        map<char, int> mp;
+        int n = s.length();
+        unordered_set<char> st;
+        int result = 0;
         for (char c : s) {
-            mp[c]++;
-        }
-        int ans = 0, maxOdd = 0;
-        for (auto x : mp) {
-            if (x.second % 2 == 0) {
-                ans += x.second;
+            if (st.count(c)) {
+                result += 2;
+                st.erase(c);
             } else {
-                maxOdd = max(maxOdd, x.second);
+                st.insert(c);
             }
         }
-        return ans + maxOdd;
+        if (!st.empty()) {
+            result++;
+        }
+        return result;
     }
 };
