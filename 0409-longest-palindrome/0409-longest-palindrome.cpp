@@ -3,25 +3,49 @@ public:
     int longestPalindrome(string s) {
         int n = s.length();
         unordered_map<char, int> mp;
-        for (char c : s) {
-            mp[c]++;
-        }
         int result = 0;
-        bool oddFreq = false;
-        for (auto &it : mp) {
-            if (it.second % 2 == 0) {
-                result += it.second;
+        int oddFreq = 0;
+        for (char ch : s) {
+            mp[ch]++;
+            if (mp[ch] % 2 != 0) {
+                oddFreq++;
             } else {
-                result += it.second - 1;
-                oddFreq = true;
+                oddFreq--;
             }
         }
-        if (oddFreq) {
-            result++;
+        if (oddFreq > 0) {
+            return n - oddFreq + 1;
         }
-        return result;
+        return n;
     }
 };
+
+
+
+// class Solution {
+// public:
+//     int longestPalindrome(string s) {
+//         int n = s.length();
+//         unordered_map<char, int> mp;
+//         for (char c : s) {
+//             mp[c]++;
+//         }
+//         int result = 0;
+//         bool oddFreq = false;
+//         for (auto &it : mp) {
+//             if (it.second % 2 == 0) {
+//                 result += it.second;
+//             } else {
+//                 result += it.second - 1;
+//                 oddFreq = true;
+//             }
+//         }
+//         if (oddFreq) {
+//             result++;
+//         }
+//         return result;
+//     }
+// };
 
 
 
