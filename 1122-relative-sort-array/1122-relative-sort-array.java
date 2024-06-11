@@ -4,6 +4,7 @@ class Solution {
         for (int x : arr1) {
             mp.put(x, mp.getOrDefault(x, 0) + 1);
         }
+        
         List<Integer> ans = new ArrayList<>();
         for (int x : arr2) {
             while (mp.get(x) > 0) {
@@ -12,6 +13,7 @@ class Solution {
             }
             mp.remove(x);
         }
+        
         for (Map.Entry<Integer, Integer> x : mp.entrySet()) {
             int key = x.getKey();
             int value = x.getValue();
@@ -20,10 +22,12 @@ class Solution {
                 value--;
             }
         }
-        int result = new int[ans.size()];
+        
+        int[] result = new int[ans.size()];
         for (int i = 0; i < ans.size(); i++) {
             result[i] = ans.get(i);
         }
+        
         return result;
     }
 }
