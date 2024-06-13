@@ -5,8 +5,10 @@ public:
             return;
         }
         grid[i][j] = 0;
-        dfs(grid, i, j);
-        dfs(grid, i, j);
+        dfs(grid, i+1, j);
+        dfs(grid, i-1, j);
+        dfs(grid, i, j+1);
+        dfs(grid, i, j-1);
     }
     int numEnclaves(vector<vector<int>>& grid) {
         int row = grid.size(), col = grid[0].size();
@@ -19,5 +21,14 @@ public:
                 }
             }
         }
+        int count = 0;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (grid[i][j] == 1) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 };
