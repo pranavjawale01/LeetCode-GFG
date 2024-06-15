@@ -14,6 +14,9 @@ public:
                 pq.push(vec[i].second);
                 i++;
             }
+            if (pq.empty()) {
+                break;
+            }
             w += pq.top();
             pq.pop();
         }
