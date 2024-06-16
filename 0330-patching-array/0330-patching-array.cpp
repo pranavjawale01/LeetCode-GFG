@@ -1,7 +1,7 @@
 class Solution {
 public:
     int minPatches(vector<int>& nums, int n) {
-        int maxReach = 0;
+        long maxReach = 0;
         int patch = 0;
         int i = 0;
         while (maxReach < n) {
