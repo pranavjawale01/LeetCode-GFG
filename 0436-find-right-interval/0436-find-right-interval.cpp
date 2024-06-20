@@ -16,9 +16,6 @@ public:
     }
     vector<int> findRightInterval(vector<vector<int>>& intervals) {
         int n = intervals.size();
-        if (n == 1) {
-            return {-1};
-        }
         vector<pair<int, int>> vec;
         for (int i = 0; i < n; i++) {
             vec.push_back({intervals[i][0], i});
