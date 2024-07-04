@@ -3,39 +3,87 @@
 using namespace std;
 
 // } Driver Code Ends
+
 class Solution {
   public:
-    // Function to detect cycle in an undirected graph.
-    bool dfs(int v, int parent, vector<int> adj[], vector<bool>& visited) {
-        visited[v] = true;
-
-        for (int u : adj[v]) {
-            if (!visited[u]) {
-                if (dfs(u, v, adj, visited)) {
-                    return true;
+    bool isCycleBFS(vector<int> g[], int V, int start, vector<bool>& visited) {
+        queue<pair<int, int>> que;
+        que.push({start, -1});
+        visited[start] = true;
+        while(!que.empty()) {
+            int curr   = que.front().first;
+            int parent = que.front().second;
+            que.pop();
+            
+            for(auto x : g[curr]) {
+                if(visited[x] == false) {
+                    que.push({x, curr});
+                    visited[x] = true;
                 }
-            } else if (u != parent) {
+                else if(x != parent)
+                    return true;
+            }
+        }
+        
+        return false;
+    }
+
+  
+    // Function to detect cycle in an undirected graph.
+    bool isCycle(int V, vector<int> adj[]) {
+        
+        vector<bool> visited(V, false);
+        
+        for(int i = 0; i<V; i++) {
+            if(!visited[i] && isCycleBFS(adj, V, i, visited)) {
                 return true;
             }
         }
-
+        
         return false;
-    }
-
-    bool isCycle(int V, vector<int> adj[]) {
-        vector<bool> visited(V, false);
-
-        for (int i = 0; i < V; i++) {
-            if (!visited[i]) {
-                if (dfs(i, -1, adj, visited)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        
     }
 };
+
+
+
+
+
+
+// class Solution {
+//   public:
+//     // Function to detect cycle in an undirected graph.
+//     bool dfs(int v, int parent, vector<int> adj[], vector<bool>& visited) {
+//         visited[v] = true;
+
+//         for (int u : adj[v]) {
+//             if (!visited[u]) {
+//                 if (dfs(u, v, adj, visited)) {
+//                     return true;
+//                 }
+//             } else if (u != parent) {
+//                 return true;
+//             }
+//         }
+
+//         return false;
+//     }
+
+//     bool isCycle(int V, vector<int> adj[]) {
+//         vector<bool> visited(V, false);
+
+//         for (int i = 0; i < V; i++) {
+//             if (!visited[i]) {
+//                 if (dfs(i, -1, adj, visited)) {
+//                     return true;
+//                 }
+//             }
+//         }
+
+//         return false;
+//     }
+// };
+
 
 //{ Driver Code Starts.
 int main() {
