@@ -1,13 +1,25 @@
 class Solution:
     def passThePillow(self, n: int, time: int) -> int:
-        idx, dir = 1, 1
-        while time > 0:
-            if idx + dir >= 1 and idx + dir <= n:
-                idx += dir
-                time -= 1
-            else:
-                dir *= -1
-        return idx
+        totalCycle = time // (n-1)
+        timeLeft = time % (n-1)
+        if totalCycle % 2 == 0:
+            return timeLeft + 1
+        return n - timeLeft
+
+
+
+
+
+# class Solution:
+#     def passThePillow(self, n: int, time: int) -> int:
+#         idx, dir = 1, 1
+#         while time > 0:
+#             if idx + dir >= 1 and idx + dir <= n:
+#                 idx += dir
+#                 time -= 1
+#             else:
+#                 dir *= -1
+#         return idx
 
 
 
