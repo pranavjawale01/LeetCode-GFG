@@ -3,20 +3,24 @@ public:
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
         map<int, vector<int>> mp;
         vector<int> indegree(numCourses, 0);
+
         for (auto x : prerequisites) {
             mp[x[1]].push_back(x[0]);
             indegree[x[0]]++;
         }
+
         queue<int> q;
         vector<int> ans;
         int count = 0;
-        for (int x : indegree) {
-            if (x == 0) {
-                q.push(x);
+
+        for (int i = 0; i < numCourses; i++) {
+            if (indegree[i] == 0) {
+                q.push(i);
                 count++;
-                ans.push_back(x);
+                ans.push_back(i);
             }
         }
+
         while (!q.empty()) {
             int x = q.front();
             q.pop();
@@ -29,9 +33,11 @@ public:
                 }
             }
         }
-        if (count == numCourses) {
-            return ans;
+
+        if (count != numCourses) {
+            return {};
         }
-        return {};
+
+        return ans;
     }
 };
