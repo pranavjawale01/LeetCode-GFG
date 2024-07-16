@@ -16,8 +16,10 @@ public:
             return false;
         }
         targetSum -= root->val;
-        if (targetSum == 0) {
-            return true;
+        if (!root->left && !root->right) {
+            if (targetSum == 0) {
+                return true;
+            }
         }
         return hasPathSum(root->left, targetSum) || hasPathSum(root->right,targetSum);
     }
