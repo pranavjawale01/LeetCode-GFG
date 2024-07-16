@@ -4,7 +4,7 @@ public:
         string ans = "";
         
         for (char c : s) {
-            if (isalphadigit(c)) {
+            if (isalnum(c)) {
                 ans += tolower(c);
             }
         }
