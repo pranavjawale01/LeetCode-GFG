@@ -7,10 +7,12 @@ class Solution:
                     mp[x] = 1
                 else:
                     mp[x] += 1
+        
         ans = -1
         count = 0
         for k, v in mp.items():
-            if v > count:
+            if v > count or (v == count and k < ans):
                 count = v
                 ans = k
+        
         return ans
