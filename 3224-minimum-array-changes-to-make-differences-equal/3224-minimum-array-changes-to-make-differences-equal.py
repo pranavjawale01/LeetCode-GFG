@@ -1,6 +1,6 @@
 class Solution:
     def minChanges(self, nums: List[int], k: int) -> int:
-        freq = [0] * 26
+        freq = [0] * (k + 1)
         vec = []
         n = len(nums)
 
