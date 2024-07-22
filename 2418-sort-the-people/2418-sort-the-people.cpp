@@ -2,17 +2,38 @@ class Solution {
 public:
     vector<string> sortPeople(vector<string>& names, vector<int>& heights) {
         int n = names.size();
-        vector<pair<int, string>> vec(n);
+        unordered_map<int, string> mp;
         for (int i = 0; i < n; i++) {
-            vec[i] = make_pair(heights[i], names[i]);
+            mp[heights[i]] = names[i];
         }
-        sort(rbegin(vec), rend(vec));
+        sort(rbegin(heights), rend(heights));
         for (int i = 0; i < n; i++) {
-            names[i] = vec[i].second;
+            names[i] = mp[heights[i]];
         }
         return names;
     }
 };
+
+
+
+
+
+
+// class Solution {
+// public:
+//     vector<string> sortPeople(vector<string>& names, vector<int>& heights) {
+//         int n = names.size();
+//         vector<pair<int, string>> vec(n);
+//         for (int i = 0; i < n; i++) {
+//             vec[i] = make_pair(heights[i], names[i]);
+//         }
+//         sort(rbegin(vec), rend(vec));
+//         for (int i = 0; i < n; i++) {
+//             names[i] = vec[i].second;
+//         }
+//         return names;
+//     }
+// };
 
 
 
