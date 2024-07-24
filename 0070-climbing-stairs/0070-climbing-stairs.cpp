@@ -4,35 +4,34 @@ public:
         if (n <= 2) {
             return n;
         }
-        int first = 1, second = 2;
-        for (int i = 3; i <= n; i++) {
-            int current = first + second;
-            first = second;
-            second = current;
+        vector<int> dp(n+1, 0);
+        dp[0] = dp[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i-1] + dp[i-2];
         }
-        return second;
+        return dp[n];
     }
 };
 
+
+
 // class Solution {
 // public:
-//     int t[46];
-//     int recursive(int n) {
+//     int dp[46];
+//     int solve(int n) {
 //         if (n < 0) {
 //             return 0;
 //         }
-//         if (t[n] != -1) {
-//             return t[n];
+//         if (dp[n] != -1) {
+//             return dp[n];
 //         }
 //         if (n == 0) {
 //             return 1;
 //         }
-//         int oneStep = recursive(n - 1);
-//         int twoStep = recursive(n - 2);
-//         return t[n] = oneStep + twoStep;
+//         return dp[n] = solve(n-1) + solve(n-2);
 //     }
 //     int climbStairs(int n) {
-//         memset(t, -1, sizeof(t));
-//         return recursive(n);
+//         memset(dp, -1, sizeof(dp));
+//         return solve(n);
 //     }
 // };
