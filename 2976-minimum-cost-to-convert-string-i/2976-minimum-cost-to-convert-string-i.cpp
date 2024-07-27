@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void floydWarshall(vector<vector<int>> &arr) {
+    void floydWarshall(vector<vector<long long>> &arr) {
         for (int via = 0; via < 26; via++) {
             for (int i = 0; i < 26; i++) {
                 for (int j = 0; j < 26; j++) {
@@ -13,13 +13,13 @@ public:
     }
 
     long long minimumCost(string source, string target, vector<char>& original, vector<char>& changed, vector<int>& cost) {
-        vector<vector<int>> arr(26, vector<int>(26, INT_MAX));
+        vector<vector<long long>> arr(26, vector<long long>(26, INT_MAX));
         int n = original.size();
         
         for (int i = 0; i < n; i++) {
             int u = original[i] - 'a';
             int v = changed[i] - 'a';
-            arr[u][v] = cost[i];
+            arr[u][v] = min((long long)cost[i], arr[u][v]);
         }
         
         for (int i = 0; i < 26; i++) {
