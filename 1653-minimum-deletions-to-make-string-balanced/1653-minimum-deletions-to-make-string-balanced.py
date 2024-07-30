@@ -1,23 +1,46 @@
 class Solution:
     def minimumDeletions(self, s: str) -> int:
         n = len(s)
-        right_a = [0] * n
         counta = 0
-        
         for i in range(n - 1, -1, -1):
-            right_a[i] = counta
             if s[i] == 'a':
                 counta += 1
         
         count = float('inf')
         countb = 0
-        
         for i in range(n):
-            count = min(count, countb + right_a[i])
+            if s[i] == 'a':
+                counta -= 1
+            count = min(count, countb + counta)
             if s[i] == 'b':
                 countb += 1
         
         return count
+
+
+
+
+
+# class Solution:
+#     def minimumDeletions(self, s: str) -> int:
+#         n = len(s)
+#         right_a = [0] * n
+#         counta = 0
+        
+#         for i in range(n - 1, -1, -1):
+#             right_a[i] = counta
+#             if s[i] == 'a':
+#                 counta += 1
+        
+#         count = float('inf')
+#         countb = 0
+        
+#         for i in range(n):
+#             count = min(count, countb + right_a[i])
+#             if s[i] == 'b':
+#                 countb += 1
+        
+#         return count
 
 
 
@@ -48,6 +71,8 @@ class Solution:
 #             count = min(count, left_b[i] + right_a[i])
         
 #         return count
+
+
 
 
 
