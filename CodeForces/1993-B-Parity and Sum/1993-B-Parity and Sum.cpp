@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 #define ll long long
@@ -6,80 +6,46 @@ using namespace std;
 void solve() {
     ll n;
     cin >> n;
-    vector<ll> arr(n);
-    ll largeOdd = 0, largeEven = 0;
-
-    for (ll i = 0; i < n; i++) {
-        cin >> arr[i];
-        if (arr[i] % 2 == 1) {
-            largeOdd = max(largeOdd, arr[i]);
+    vector<int> odd, even;
+    for (int i = 0; i < n; i++) {
+        int num;
+        cin >> num;
+        if (num % 2 == 1) {
+            odd.push_back(num);
         } else {
-            largeEven = max(largeEven, arr[i]);
+            even.push_back(num);
         }
     }
 
-    bool flag = true;
-    for (int i = 1; i < n; i++) {
-        if (arr[i] % 2 != arr[0] % 2) {
-            flag = false;
-            break;
-        }
-    }
-    if (flag) {
+    if (odd.empty() || even.empty()) {
         cout << 0 << endl;
         return;
-    }
+    } 
 
-    sort(arr.begin(), arr.end());
-    int c = 0;
+    sort(odd.begin(), odd.end());
+    sort(even.begin(), even.end());
+    
+    ll max_odd = odd.back();
+    ll ans = even.size();
 
-    for (int i = 0; i < n; i++) {
-        if (arr[i] % 2 == 0 && arr[i] < largeOdd) {
-            c++;
-            arr[i] += largeOdd;
-            largeOdd = max(largeOdd, arr[i]);
-        }
-    }
-
-    flag = true;
-    for (int i = 1; i < n; i++) {
-        if (arr[i] % 2 != arr[0] % 2) {
-            flag = false;
+    for (int x : even) {
+        if (x > max_odd) {
+            ans++;
             break;
         }
-    }
-    if (flag) {
-        cout << c << endl;
-        return;
+        max_odd += x;
     }
 
-    ll idx = 0;
-    for (int i = 0; i < n; i++) {
-        if (arr[i] % 2 == 1 && arr[i] == largeOdd) {
-            idx = i;
-            break;
-        }
-    }
-
-    arr[idx] = largeOdd + largeEven;
-    c++;
-
-    for (int i = 0; i < n; i++) {
-        if (arr[i] % 2 == 0) {
-            c++;
-        }
-    }
-
-    cout << c << endl;
+    cout << ans << endl;
 }
 
 int main() {
     int t;
     cin >> t;
-
+    
     while (t--) {
         solve();
     }
-
+    
     return 0;
 }
