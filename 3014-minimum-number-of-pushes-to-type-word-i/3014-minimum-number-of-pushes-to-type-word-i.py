@@ -1,17 +1,33 @@
 class Solution:
     def minimumPushes(self, word: str) -> int:
-        mp = {}
-        key = 2
-        ans = 0
+        freq = [0] * 26
         for c in word:
-            if key > 9:
-                key = 2
-            if key not in mp:
-                mp[key] = 0
-            mp[key] += 1
-            ans += mp[key]
-            key += 1
+            freq[ord(c) - ord('a')] += 1
+        freq.sort(reverse=True)
+        ans = 0
+        for i in range(26):
+            ans += ((i // 8) + 1) * freq[i]
         return ans
+
+
+
+
+
+
+# class Solution:
+#     def minimumPushes(self, word: str) -> int:
+#         mp = {}
+#         key = 2
+#         ans = 0
+#         for c in word:
+#             if key > 9:
+#                 key = 2
+#             if key not in mp:
+#                 mp[key] = 0
+#             mp[key] += 1
+#             ans += mp[key]
+#             key += 1
+#         return ans
 
 
 
