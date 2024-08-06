@@ -1,20 +1,42 @@
 class Solution {
 public:
     int minimumPushes(string word) {
-        unordered_map<int, int> mp;
-        int key = 2;
-        int ans = 0;
+        vector<int> freq(26, 0);
         for (char c : word) {
-            if (key > 9) {
-                key = 2;
-            }
-            mp[key]++;
-            ans += mp[key];
-            key++;
+            freq[c - 'a']++;
+        }
+        sort(freq.begin(), freq.end(), greater<int>());
+        int ans = 0;
+        for (int i = 0; i < 26; i++) {
+            ans += ((i / 8) + 1) * freq[i];
         }
         return ans;
     }
 };
+
+
+
+
+
+
+// class Solution {
+// public:
+//     int minimumPushes(string word) {
+//         unordered_map<int, int> mp;
+//         int key = 2;
+//         int ans = 0;
+//         for (char c : word) {
+//             if (key > 9) {
+//                 key = 2;
+//             }
+//             mp[key]++;
+//             ans += mp[key];
+//             key++;
+//         }
+//         return ans;
+//     }
+// };
+
 
 
 
