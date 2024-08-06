@@ -1,19 +1,38 @@
 class Solution {
     public int minimumPushes(String word) {
-        HashMap<Integer, Integer> mp = new HashMap<>();
-        int key = 2;
-        int ans = 0;
+        int[] freq = new int[26];
         for (char c : word.toCharArray()) {
-            if (key > 9) {
-                key = 2;
-            }
-            mp.put(key, mp.getOrDefault(key, 0) + 1);
-            ans += mp.get(key);
-            key++;
+            freq[c - 'a']++;
+        }
+        Arrays.sort(freq);
+        int ans = 0;
+        for (int i = 25; i >= 0; i--) {
+            ans += ((25 - i) / 8 + 1) * freq[i];
         }
         return ans;
     }
 }
+
+
+
+
+
+// class Solution {
+//     public int minimumPushes(String word) {
+//         HashMap<Integer, Integer> mp = new HashMap<>();
+//         int key = 2;
+//         int ans = 0;
+//         for (char c : word.toCharArray()) {
+//             if (key > 9) {
+//                 key = 2;
+//             }
+//             mp.put(key, mp.getOrDefault(key, 0) + 1);
+//             ans += mp.get(key);
+//             key++;
+//         }
+//         return ans;
+//     }
+// }
 
 
 
