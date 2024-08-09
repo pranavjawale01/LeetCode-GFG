@@ -1,0 +1,43 @@
+class Solution {
+    public boolean isMagicSquare(int[][] grid, int r, int c) {
+        Set<Integer> st = new HashSet<>();
+        int sum = 15;
+
+        for (int i = r; i < r + 3; i++) {
+            for (int j = c; j < c + 3; j++) {
+                if (grid[i][j] < 1 || grid[i][j] > 9 || !st.add(grid[i][j])) {
+                    return false;
+                }
+            }
+        }
+
+        if (grid[r][c] + grid[r][c + 1] + grid[r][c + 2] != sum) return false;
+        if (grid[r + 1][c] + grid[r + 1][c + 1] + grid[r + 1][c + 2] != sum) return false;
+        if (grid[r + 2][c] + grid[r + 2][c + 1] + grid[r + 2][c + 2] != sum) return false;
+
+        if (grid[r][c] + grid[r + 1][c] + grid[r + 2][c] != sum) return false;
+        if (grid[r][c + 1] + grid[r + 1][c + 1] + grid[r + 2][c + 1] != sum) return false;
+        if (grid[r][c + 2] + grid[r + 1][c + 2] + grid[r + 2][c + 2] != sum) return false;
+
+        if (grid[r][c] + grid[r + 1][c + 1] + grid[r + 2][c + 2] != sum) return false;
+        if (grid[r][c + 2] + grid[r + 1][c + 1] + grid[r + 2][c] != sum) return false;
+
+        return true;
+    }
+
+    public int numMagicSquaresInside(int[][] grid) {
+        int row = grid.length, col = grid[0].length;
+        if (row < 3 || col < 3) {
+            return 0;
+        }
+        int count = 0;
+        for (int i = 0; i <= row - 3; i++) {
+            for (int j = 0; j <= col - 3; j++) {
+                if (isMagicSquare(grid, i, j)) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+}
