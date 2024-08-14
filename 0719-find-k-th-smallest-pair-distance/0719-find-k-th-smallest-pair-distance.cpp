@@ -2,22 +2,47 @@ class Solution {
 public:
     int smallestDistancePair(vector<int>& nums, int k) {
         int n = nums.size();
-        int maxEl = *max_element(nums.begin(), nums.end());
-        vector<int> vec(maxEl+1, 0);
+        vector<int> vec(n * (n - 1) / 2);
+        int idx = 0;
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
-                vec[abs(nums[i] - nums[j])]++;
+                int d = abs(nums[i] - nums[j]);
+                vec[idx] = d;
+                idx++;
             }
         }
-        for (int d = 0; d < maxEl + 1; d++) {
-            k -= vec[d];
-            if (k <= 0) {
-                return d;
-            }
-        }
-        return -1;
+
+        nth_element(vec.begin(), vec.begin() + (k - 1), vec.end());
+
+        return vec[k - 1];
     }
 };
+
+
+
+
+
+
+// class Solution {
+// public:
+//     int smallestDistancePair(vector<int>& nums, int k) {
+//         int n = nums.size();
+//         int maxEl = *max_element(nums.begin(), nums.end());
+//         vector<int> vec(maxEl+1, 0);
+//         for (int i = 0; i < n; i++) {
+//             for (int j = i + 1; j < n; j++) {
+//                 vec[abs(nums[i] - nums[j])]++;
+//             }
+//         }
+//         for (int d = 0; d < maxEl + 1; d++) {
+//             k -= vec[d];
+//             if (k <= 0) {
+//                 return d;
+//             }
+//         }
+//         return -1;
+//     }
+// };
 
 
 
