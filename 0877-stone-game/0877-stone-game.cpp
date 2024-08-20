@@ -1,9 +1,28 @@
 class Solution {
 public:
     bool stoneGame(vector<int>& piles) {
-        return true;
+        int n = piles.size();
+        vector<int> dp = piles;
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < n - i; j++) {
+                dp[j] = max(piles[j] - dp[j+1], piles[j+i] - dp[j]);
+            }
+        }
+        return dp[0] > 0;
     }
 };
+
+
+
+
+
+
+// class Solution {
+// public:
+//     bool stoneGame(vector<int>& piles) {
+//         return true;
+//     }
+// };
 
 
 
