@@ -20,18 +20,48 @@ public:
 
 class Solution {
 public:
-    vector<int> ans;
-    void solve(Node *root) {
-        if (!root) {
-            return;
-        }
-        for (Node *child : root->children) {
-            solve(child);
-        }
-        ans.push_back(root->val);
-    }
     vector<int> postorder(Node* root) {
-        solve(root);
+        if (!root) return {};        
+        stack<Node*> st;
+        st.push(root);
+        vector<int> ans;
+        
+        while (!st.empty()) {
+            Node* temp = st.top();
+            st.pop();
+            ans.push_back(temp->val);
+            
+            for (Node* child : temp->children) {
+                st.push(child);
+            }
+        }
+        
+        reverse(ans.begin(), ans.end());
         return ans;
     }
 };
+
+
+
+
+
+
+
+
+// class Solution {
+// public:
+//     vector<int> ans;
+//     void solve(Node *root) {
+//         if (!root) {
+//             return;
+//         }
+//         for (Node *child : root->children) {
+//             solve(child);
+//         }
+//         ans.push_back(root->val);
+//     }
+//     vector<int> postorder(Node* root) {
+//         solve(root);
+//         return ans;
+//     }
+// };
