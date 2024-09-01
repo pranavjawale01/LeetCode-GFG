@@ -17,3 +17,28 @@ public:
         }
     }
 };
+
+
+
+// class Solution {
+// public:
+//     void sortColors(vector<int>& nums) {
+//         int count[3] = {0};
+//         for (int num : nums) {
+//             if (num == 0) {
+//                 count[0]++;
+//             } else if (num == 1) {
+//                 count[1]++;
+//             } else {
+//                 count[2]++;
+//             }
+//         }
+//         for (int i = 0, j = 0; i < 3; i++) {
+//             while (count[i] > 0) {
+//                 nums[j] = i;
+//                 j++;
+//                 count[i]--;
+//             }
+//         }
+//     }
+// };
