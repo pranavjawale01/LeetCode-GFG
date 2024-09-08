@@ -1,60 +1,67 @@
 class Solution {
 public:
-    int knightMoves(int x1, int y1, int x2, int y2) {
-        vector<vector<int>> directions = {
-            {2, 1}, {2, -1}, {-2, 1}, {-2, -1},
-            {1, 2}, {1, -2}, {-1, 2}, {-1, -2}
-        };
-        
+    vector<vector<int>> dirs = {{2, 1}, {2, -1}, {-2, 1}, {-2, -1}, {1, 2}, {1, -2}, {-1, 2}, {-1, -2}};
+    
+    void BFS(int x, int y, int idx, vector<vector<int>> &minDist, vector<vector<int>> &pos) {
         vector<vector<int>> dist(50, vector<int>(50, -1));
-        dist[x1][y1] = 0;
-        
         queue<pair<int, int>> q;
-        q.push({x1, y1});
-        
+        q.push({x, y});
+        dist[x][y] = 0;
         while (!q.empty()) {
-            auto [cx, cy] = q.front(); q.pop();
-            int curDist = dist[cx][cy];
-            
-            for (auto dir : directions) {
-                int nx = cx + dir[0], ny = cy + dir[1];
-                if (nx >= 0 && ny >= 0 && nx < 50 && ny < 50 && dist[nx][ny] == -1) {
-                    dist[nx][ny] = curDist + 1;
-                    q.push({nx, ny});
+            auto [currX, currY] = q.front();
+            q.pop();
+            for (auto &dir : dirs) {
+                int newX = currX + dir[0];
+                int newY = currY + dir[1];
+                if (newX >= 0 && newX < 50 && newY >= 0 && newY < 50 && dist[newX][newY] == -1) {
+                    dist[newX][newY] = dist[currX][currY] + 1;
+                    q.push({newX, newY});
                 }
             }
         }
-        
-        return dist[x2][y2];
+        for (int i = 0; i < pos.size(); i++) {
+            int x_ = pos[i][0];
+            int y_ = pos[i][1];
+            minDist[idx][i] = dist[x_][y_];
+        }
     }
 
-    int solve(int kx, int ky, vector<vector<int>>& positions, int mask, vector<vector<int>>& dp) {
-        int n = positions.size();
-        if (mask == (1 << n) - 1) {
+    int solve(vector<vector<int>> &minDist, int idx, int mask, int n, bool Alice, vector<vector<vector<int>>> &dp) {
+        if (mask == 0) {
             return 0;
         }
-        
-        if (dp[mask][kx * 50 + ky] != -1) {
-            return dp[mask][kx * 50 + ky];
+        if (dp[idx][mask][Alice] != -1) {
+            return dp[idx][mask][Alice];
         }
-        
-        int maxTotalMoves = 0;
-        for (int i = 0; i < n; ++i) {
-            if (!(mask & (1 << i))) {
-                int px = positions[i][0], py = positions[i][1];
-                int movesToCapture = knightMoves(kx, ky, px, py);                
-                int futureMoves = solve(px, py, positions, mask | (1 << i), dp);                
-                maxTotalMoves = max(maxTotalMoves, movesToCapture + futureMoves);
+        int result = Alice ? -1 : 1e9;
+        for (int i = 1; i < n; i++) {
+            if (mask & (1 << (i - 1))) {
+                int moves = minDist[idx][i];
+                if (Alice) {
+                    result = max(result, moves + solve(minDist, i, mask ^ (1 << (i - 1)), n, !Alice, dp));
+                } else {
+                    result = min(result, moves + solve(minDist, i, mask ^ (1 << (i - 1)), n, !Alice, dp));
+                }
             }
         }
-        
-        dp[mask][kx * 50 + ky] = maxTotalMoves;
-        return maxTotalMoves;
+        return dp[idx][mask][Alice] = result;
     }
-
+    
     int maxMoves(int kx, int ky, vector<vector<int>>& positions) {
         int n = positions.size();
-        vector<vector<int>> dp(1 << n, vector<int>(2500, -1));        
-        return solve(kx, ky, positions, 0, dp);
+        vector<vector<int>> pos;
+        pos.push_back({kx, ky});
+        for (auto vec : positions) {
+            pos.push_back({vec[0], vec[1]});
+        }
+        vector<vector<int>> minDist(pos.size(), vector<int>(pos.size(), 0));
+        for (int i = 0; i < pos.size(); i++) {
+            int x = pos[i][0];
+            int y = pos[i][1];
+            BFS(x, y, i, minDist, pos);
+        }
+        bool Alice = true;
+        vector<vector<vector<int>>> dp(pos.size(), vector<vector<int>>(1 << n, vector<int>(2, -1)));
+        return solve(minDist, 0, (1 << n) - 1, pos.size(), Alice, dp);
     }
 };
