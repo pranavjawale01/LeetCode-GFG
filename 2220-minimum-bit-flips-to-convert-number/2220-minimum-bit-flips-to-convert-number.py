@@ -1,6 +1,19 @@
 class Solution:
     def minBitFlips(self, start: int, goal: int) -> int:
-        return bin(start ^ goal).count('1')
+        ans = start ^ goal
+        count = 0
+        while ans:
+            count += ans & 1
+            ans >>= 1
+        return count
+
+
+
+
+
+# class Solution:
+#     def minBitFlips(self, start: int, goal: int) -> int:
+#         return bin(start ^ goal).count('1')
 
 
 
