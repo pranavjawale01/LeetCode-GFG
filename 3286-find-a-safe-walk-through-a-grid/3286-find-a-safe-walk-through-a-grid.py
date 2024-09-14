@@ -2,7 +2,7 @@ class Solution:
     def findSafeWalk(self, grid: List[List[int]], health: int) -> bool:
         n, m = len(grid), len(grid[0])
         dp = [[-1 for _ in range(m)] for _ in range(n)]
-        q = deque()  # Use deque for efficient popping from the front
+        q = deque()
         q.append([0, 0, health - grid[0][0]])
         dirs = [[1, 0], [-1, 0], [0, 1], [0, -1]]
         dp[0][0] = health - grid[0][0]
