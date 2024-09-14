@@ -12,7 +12,6 @@ public:
                     i++;
                 }
                 ans = max(ans, temp);
-                i--;
             }
         }
         return ans;
