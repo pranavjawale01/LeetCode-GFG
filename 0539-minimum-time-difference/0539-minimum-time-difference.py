@@ -1,6 +1,5 @@
 class Solution:
     def toMinutes(self, time: str) -> int:
-        # Convert "HH:MM" format to total minutes since midnight
         hours = int(time[:2])
         minutes = int(time[3:])
         return hours * 60 + minutes
