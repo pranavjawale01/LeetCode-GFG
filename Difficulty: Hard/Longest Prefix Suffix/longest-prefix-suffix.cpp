@@ -13,29 +13,25 @@ class Solution {
   public:
     int lps(string str) {
         // Your code goes here
-        int n = str.length();
-        vector<int> arr(n);
-        int len = 0;
-        arr[0] = 0;
-        int i = 1;
+        int i = 1, j = 0;
+        int n = str.size();
+        vector<int> len(n, 0);
         while (i < n) {
-            if (str[i] == str[len]) {
-                len++;
-                arr[i] = len;
+            if (str[i] == str[j]) {
+                len[i] = j + 1;
                 i++;
+                j++;
             } else {
-                if (len != 0) {
-                    len = arr[len-1];
+                if (j > 0) {
+                    j = len[j-1];
                 } else {
-                    arr[i] = 0;
                     i++;
                 }
             }
         }
-        return arr[n-1];
+        return len[n-1];
     }
 };
-
 
 //{ Driver Code Starts.
 
