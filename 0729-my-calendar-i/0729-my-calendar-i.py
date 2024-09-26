@@ -1,18 +1,37 @@
 from sortedcontainers import SortedList
 
 class MyCalendar:
-
     def __init__(self):
-        self.st= SortedList()
-
-    def book(self, start: int, end: int) -> bool:
-        idx = self.st.bisect_left((start, end))
-        if idx < len(self.st) and self.st[idx][0] < end:
+        self.st = SortedList(key=lambda x: (x[0], x[1]))
+    
+    def book(self, start, end):
+        idx = self.st.bisect_right([start, end])
+        if idx < len(self.st) and self.st[idx][1] < end:
             return False
-        if idx > 0 and self.st[idx-1][1] > start:
-            return False
-        self.st.add((start, end))
+        self.st.add([end, start])
         return True
+
+
+
+
+
+
+
+# from sortedcontainers import SortedList
+
+# class MyCalendar:
+
+#     def __init__(self):
+#         self.st= SortedList()
+
+#     def book(self, start: int, end: int) -> bool:
+#         idx = self.st.bisect_left((start, end))
+#         if idx < len(self.st) and self.st[idx][0] < end:
+#             return False
+#         if idx > 0 and self.st[idx-1][1] > start:
+#             return False
+#         self.st.add((start, end))
+#         return True
 
 
 
@@ -30,8 +49,6 @@ class MyCalendar:
 #                 return False
 #         self.cal.append([start, end])
 #         return True
-
-
 
 
 
