@@ -1,22 +1,49 @@
-typedef pair<int, int> p;
 class MyCalendar {
 public:
-    vector<p> cal;
+    set<pair<int, int>> st;
     MyCalendar() {
         
     }
     
     bool book(int start, int end) {
-        for (int i = 0; i < cal.size(); i++) {
-            p curr = cal[i];
-            if (!(end <= curr.first || start >= curr.second)) {
+        auto it = st.lower_bound({start, end});
+        if (it != st.end() && it->first < end) {
+            return false;
+        }
+        if (it != st.begin()) {
+            auto prevIt = prev(it);
+            if (start < prevIt->second) {
                 return false;
             }
         }
-        cal.push_back({start, end});
+        st.insert({start, end});
         return true;
     }
 };
+
+
+
+
+
+// typedef pair<int, int> p;
+// class MyCalendar {
+// public:
+//     vector<p> cal;
+//     MyCalendar() {
+        
+//     }
+    
+//     bool book(int start, int end) {
+//         for (int i = 0; i < cal.size(); i++) {
+//             p curr = cal[i];
+//             if (!(end <= curr.first || start >= curr.second)) {
+//                 return false;
+//             }
+//         }
+//         cal.push_back({start, end});
+//         return true;
+//     }
+// }
 
 /**
  * Your MyCalendar object will be instantiated and called as such:
