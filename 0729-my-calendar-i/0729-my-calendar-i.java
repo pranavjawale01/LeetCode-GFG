@@ -1,20 +1,52 @@
 class MyCalendar {
-    private List<int[]> cal;
+    private TreeSet<int[]> st;
 
     public MyCalendar() {
-        cal = new ArrayList<>();
+        st = new TreeSet<>((a, b) -> a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]);
     }
     
     public boolean book(int start, int end) {
-        for (int[] x : cal) {
-            if (end > x[0] && start < x[1]) {
-                return false;
-            }
+        int[] x = {start, end};
+        int[] nxt = st.ceiling(x);
+        if (nxt != null && nxt[0] < end) {
+            return false;
         }
-        cal.add(new int[]{start, end});
+        int[] prev = st.floor(x);
+        if (prev != null && prev[1] > start) {
+            return false;
+        }
+        st.add(x);
         return true;
     }
 }
+
+
+
+
+
+
+
+// class MyCalendar {
+//     private List<int[]> cal;
+
+//     public MyCalendar() {
+//         cal = new ArrayList<>();
+//     }
+    
+//     public boolean book(int start, int end) {
+//         for (int[] x : cal) {
+//             if (end > x[0] && start < x[1]) {
+//                 return false;
+//             }
+//         }
+//         cal.add(new int[]{start, end});
+//         return true;
+//     }
+// }
+
+
+
+
 
 /**
  * Your MyCalendar object will be instantiated and called as such:
