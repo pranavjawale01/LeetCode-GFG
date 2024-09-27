@@ -8,7 +8,7 @@ class Solution {
         for (int i = 0; i < n; i++) {
             curr += nums[i];
             mp.put(nums[i], mp.getOrDefault(nums[i], 0) + 1);
-            if (mp.get(nums[i]) > 1) {
+            while (mp.get(nums[i]) > 1) {
                 mp.put(nums[j], mp.getOrDefault(nums[j], 0) - 1);
                 curr -= nums[j];
                 j++;
