@@ -1,24 +1,52 @@
 class Solution {
     public int minLength(String s) {
-        Stack<Character> st = new Stack<>();
+        int n = s.length();
+        char[] arr = s.toCharArray();
+        int i = 0, j = 1;
         
-        for (char c : s.toCharArray()) {
-            if (st.isEmpty()) {
-                st.push(c);
+        while (j < n) {
+            if (i < 0) {
+                i++;
+                arr[i] = arr[j];
+            } else if ((arr[i] == 'A' && arr[j] == 'B') || (arr[i] == 'C' && arr[j] == 'D')) {
+                i--;
             } else {
-                if (c == 'B' && st.peek() == 'A') {
-                    st.pop();
-                } else if (c == 'D' && st.peek() == 'C') {
-                    st.pop();
-                } else {
-                    st.push(c);
-                }
+                i++;
+                arr[i] = arr[j];
             }
+            j++;
         }
         
-        return st.size();
+        return i + 1;
     }
 }
+
+
+
+
+
+
+// class Solution {
+//     public int minLength(String s) {
+//         Stack<Character> st = new Stack<>();
+        
+//         for (char c : s.toCharArray()) {
+//             if (st.isEmpty()) {
+//                 st.push(c);
+//             } else {
+//                 if (c == 'B' && st.peek() == 'A') {
+//                     st.pop();
+//                 } else if (c == 'D' && st.peek() == 'C') {
+//                     st.pop();
+//                 } else {
+//                     st.push(c);
+//                 }
+//             }
+//         }
+        
+//         return st.size();
+//     }
+// }
 
 
 
