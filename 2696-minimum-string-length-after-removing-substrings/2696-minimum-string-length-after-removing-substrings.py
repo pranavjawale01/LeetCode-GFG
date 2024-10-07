@@ -1,19 +1,44 @@
 class Solution:
     def minLength(self, s: str) -> int:
-        stack = []
+        n = len(s)
+        s = list(s)
+        i, j = 0, 1
         
-        for c in s:
-            if not stack:
-                stack.append(c)
+        while j < n:
+            if i < 0:
+                i += 1
+                s[i] = s[j]
+            elif (s[i] == 'A' and s[j] == 'B') or (s[i] == 'C' and s[j] == 'D'):
+                i -= 1
             else:
-                if c == 'B' and stack[-1] == 'A':
-                    stack.pop()
-                elif c == 'D' and stack[-1] == 'C':
-                    stack.pop()
-                else:
-                    stack.append(c)
+                i += 1
+                s[i] = s[j]
+            j += 1
         
-        return len(stack)
+        return i + 1 
+
+
+
+
+
+
+
+# class Solution:
+#     def minLength(self, s: str) -> int:
+#         stack = []
+        
+#         for c in s:
+#             if not stack:
+#                 stack.append(c)
+#             else:
+#                 if c == 'B' and stack[-1] == 'A':
+#                     stack.pop()
+#                 elif c == 'D' and stack[-1] == 'C':
+#                     stack.pop()
+#                 else:
+#                     stack.append(c)
+        
+#         return len(stack)
 
 
 
