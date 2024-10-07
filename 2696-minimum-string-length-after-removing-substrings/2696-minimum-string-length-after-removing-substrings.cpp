@@ -1,23 +1,50 @@
 class Solution {
 public:
     int minLength(string s) {
-        stack<char> st;
-        for (char &c : s) {
-            if (st.empty()) {
-                st.push(c);
+        int n = s.length();
+        int i = 0, j = 1;
+        while (j < n) {
+            if (i < 0) {
+                i++;
+                s[i] = s[j];
+            } else if ((s[i] == 'A' && s[j] == 'B') || (s[i] == 'C' && s[j] == 'D')) {
+                i--;
             } else {
-                if (c == 'B' && st.top() == 'A') {
-                    st.pop();
-                } else if (c == 'D' && st.top() == 'C') {
-                    st.pop();
-                } else {
-                    st.push(c);
-                }
+                i++;
+                s[i] = s[j];
             }
+            j++;
         }
-        return st.size();
+        return i + 1;
     }
 };
+
+
+
+
+
+
+
+// class Solution {
+// public:
+//     int minLength(string s) {
+//         stack<char> st;
+//         for (char &c : s) {
+//             if (st.empty()) {
+//                 st.push(c);
+//             } else {
+//                 if (c == 'B' && st.top() == 'A') {
+//                     st.pop();
+//                 } else if (c == 'D' && st.top() == 'C') {
+//                     st.pop();
+//                 } else {
+//                     st.push(c);
+//                 }
+//             }
+//         }
+//         return st.size();
+//     }
+// };
 
 
 
