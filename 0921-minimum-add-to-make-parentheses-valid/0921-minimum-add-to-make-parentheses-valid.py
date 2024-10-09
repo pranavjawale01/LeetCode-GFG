@@ -1,13 +1,31 @@
 class Solution:
     def minAddToMakeValid(self, s: str) -> int:
-        st = []
-        count = 0
+        open, close = 0, 0
         for c in s:
             if c is '(':
-                st.append(c)
+                open += 1
             else:
-                if not st:
-                    count += 1
+                if open == 0:
+                    close += 1
                 else:
-                    st.pop()
-        return len(st) + count
+                    open -= 1
+        return open + close
+
+
+
+
+
+
+# class Solution:
+#     def minAddToMakeValid(self, s: str) -> int:
+#         st = []
+#         count = 0
+#         for c in s:
+#             if c is '(':
+#                 st.append(c)
+#             else:
+#                 if not st:
+#                     count += 1
+#                 else:
+#                     st.pop()
+#         return len(st) + count
