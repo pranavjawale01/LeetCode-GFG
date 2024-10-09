@@ -1,19 +1,45 @@
 class Solution {
 public:
     int minAddToMakeValid(string s) {
-        stack<char> st;
-        int count = 0;
+        int open = 0, close = 0;
         for (char c : s) {
             if (c == '(') {
-                st.push(c);
+                open++;
             } else {
-                if (st.empty()) {
-                    count++;
+                if (open == 0) {
+                    close++;
                 } else {
-                    st.pop();
+                    open--;
                 }
             }
         }
-        return st.size() + count;
+        return open + close;
     }
 };
+
+
+
+
+
+
+
+
+// class Solution {
+// public:
+//     int minAddToMakeValid(string s) {
+//         stack<char> st;
+//         int count = 0;
+//         for (char c : s) {
+//             if (c == '(') {
+//                 st.push(c);
+//             } else {
+//                 if (st.empty()) {
+//                     count++;
+//                 } else {
+//                     st.pop();
+//                 }
+//             }
+//         }
+//         return st.size() + count;
+//     }
+// };
