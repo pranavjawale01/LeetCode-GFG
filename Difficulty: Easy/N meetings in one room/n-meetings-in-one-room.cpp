@@ -10,29 +10,25 @@ class Solution {
     // be performed in a meeting room.
     int maxMeetings(int n, int start[], int end[]) {
         // Your code here
-        vector<pair<int, int>> meetings;
+        vector<pair<int, int>> arr;
         for (int i = 0; i < n; i++) {
-            meetings.push_back({end[i], start[i]});
+            arr.push_back({end[i], start[i]});
         }
-
-        sort(meetings.begin(), meetings.end());
-
+        sort(arr.begin(), arr.end());
         int count = 0;
         int last = 0;
-
-        for (auto& meeting : meetings) {
-            int u = meeting.second;
-            int v = meeting.first;
-
-            if (u > last) {
+        for (int i = 0; i < n; i++) {
+            int u = arr[i].first;
+            int v = arr[i].second;
+            if (v > last) {
                 count++;
-                last = v;
+                last = u;
             }
         }
-
         return count;
     }
 };
+
 
 //{ Driver Code Starts.
 int main() {
