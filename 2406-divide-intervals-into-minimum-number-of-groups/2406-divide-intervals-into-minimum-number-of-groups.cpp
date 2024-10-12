@@ -1,7 +1,7 @@
 class Solution {
 public:
     int minGroups(vector<vector<int>>& intervals) {
-        unordered_map<int, int> mp;
+        map<int, int> mp;
         for (auto &x : intervals) {
             mp[x[0]]++;
             mp[x[1] + 1]--;
