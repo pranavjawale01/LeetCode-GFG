@@ -27,8 +27,8 @@ public:
             }
             pq.push(sum);
         }
-        k--;
-        while (k--) pq.pop();
+        if (pq.size() < k) return -1;        
+        while (--k) pq.pop();        
         return pq.top();
     }
 };
