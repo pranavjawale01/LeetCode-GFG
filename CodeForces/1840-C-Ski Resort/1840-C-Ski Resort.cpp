@@ -68,20 +68,24 @@ void output2d(const vector<vector<T>> &arr) {
 
 //----------------------------------Solution code here-----------------------------//
 void pranavjawale01() {
-    ll n, q, k;
-    cin >> n >> q >> k;
-    vll arr(n);
+    int n, k, q;
+    cin >> n >> k >> q;
+
+    vi arr(n);
     input1d(arr);
+
     ll ans = 0;
     ll cnt = 0;
+
     for (int i = 0; i < n; i++) {
         if (arr[i] <= q) {
             cnt++;
         } else {
             cnt = 0;
         }
-        ans += max(0LL, cnt - k + 1);
+        ans += (cnt >= k) ? (cnt - k + 1) : 0;
     }
+
     cout << ans << endl;
 }
 
