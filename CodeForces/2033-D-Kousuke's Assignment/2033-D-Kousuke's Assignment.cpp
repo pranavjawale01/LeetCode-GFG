@@ -68,26 +68,27 @@ void output2d(const vector<vector<T>> &arr) {
 
 //----------------------------------Solution code here-----------------------------//
 void pranavjawale01() {
-    ll n;
+    int n;
     cin >> n;
-    vll arr(n);
-    input1d(arr);
-    unordered_map<int, int> mp;
-    mp[0] = 1;
-    int ans = 0;
-    ll sum = 0;
-    for (int i = 0; i < n; i++) {
-        sum += arr[i];
-        if (mp.find(sum) != mp.end()) {
-            ans++;
-            mp.clear();
-            mp[0] = 1;
-            sum = 0;
-        } else {
-            mp[sum]++;
+    
+    vector<int> dp(n + 1);
+    map<int64_t, int> prefixSumIndex;
+    prefixSumIndex[0] = 0;
+
+    int64_t prefixSum = 0;
+    for (int i = 1; i <= n; i++) {
+        int a;
+        cin >> a;
+        prefixSum += a;
+
+        dp[i] = dp[i - 1];
+        if (prefixSumIndex.count(prefixSum)) {
+            dp[i] = max(dp[i], 1 + dp[prefixSumIndex[prefixSum]]);
         }
+        prefixSumIndex[prefixSum] = i;
     }
-    cout << ans << endl;
+
+    cout << dp[n] << endl;
 }
 
 int main() {
