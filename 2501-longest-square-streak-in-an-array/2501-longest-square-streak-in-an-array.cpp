@@ -2,13 +2,14 @@ class Solution {
 public:
     int longestSquareStreak(vector<int>& nums) {
         unordered_set<int> st(nums.begin(), nums.end());
-        int ans = 0;
-        for (int &x : nums) {
+        int ans = 0;        
+        for (int x : nums) {
             int count = 0;
-            while (st.count(x)) {
+            long long current = x;
+            while (st.count(current)) {
                 count++;
-                x *= x;
-                if (x > 1e5) break;
+                current *= current;
+                if (current > 1e5) break;
             }
             if (count >= 2) ans = max(ans, count);
         }
