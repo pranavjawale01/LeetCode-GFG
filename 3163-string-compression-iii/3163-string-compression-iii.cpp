@@ -1,19 +1,15 @@
 class Solution {
 public:
     string compressedString(string word) {
-        unordered_map<char, int> mp;
-        for (char c : word) {
-            mp[c]++;
-        }        
         string ans = "";
-        for (char c : word) {
-            if (mp[c]) {
-                int count = min(mp[c], 9);
-                ans += to_string(count) + c;
-                mp[c] -= count;
-            }
-            if (mp[c] == 0) {
-                mp.erase(c);
+        int count = 1;
+        int n = word.size();
+        for (int i = 0; i < n; i++) {
+            if (i + 1 < word.size() && word[i] == word[i + 1] && count < 9) {
+                count++;
+            } else {
+                ans += to_string(count) + word[i];
+                count = 1;
             }
         }
         return ans;
