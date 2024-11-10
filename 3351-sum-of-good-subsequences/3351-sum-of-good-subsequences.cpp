@@ -4,7 +4,7 @@ public:
         long long ans = 0;
         int n = nums.size();
         int MOD = 1e9 + 7;
-        map<int, long long> sum, count;
+        unordered_map<int, long long> sum, count;
         for (int i = 0; i < n; i++) {
             ans = (ans + nums[i]) % MOD;
             int find1 = nums[i] + 1;
