@@ -75,13 +75,13 @@ void pranavjawale01() {
     vll brr = arr;
     sort(all(brr));
     ll sum = accumulate(all(arr), 0ll);
-    map<int, int> mp;
+    unordered_map<ll, ll> mp;
     bool flag = false;
     ll ele = 0;
     for (ll i = 0; i < n; i++) {
         sum -= brr[n-i-1];
         if (flag) {
-            mp[brr[n-i-1]] = bb;
+            mp[brr[n-i-1]] = ele;
         } else {
             mp[brr[n-i-1]] = n - i - 1;
             ele = n - i - 1;
