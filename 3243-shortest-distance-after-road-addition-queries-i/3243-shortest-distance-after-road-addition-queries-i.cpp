@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int dijikstras(int s, int n, vector<vector<int>> mp) {
+    int dijikstras(int s, int n, vector<vector<int>> &mp) {
         vector<int> dist(n, n);
         queue<int> q;
         dist[0] = 0;
