@@ -12,7 +12,9 @@ using namespace std;
 #define pb push_back
 #define ff first
 #define ss second
-#define endl "\n"
+#define nl "\n"
+#define yes cout << "YES"
+#define no cout << "NO"
 
 const int MOD = 1e9 + 7;
 const ll INF = 1e18;
@@ -68,31 +70,24 @@ void output2d(const vector<vector<T>> &arr) {
 
 //----------------------------------Solution code here-----------------------------//
 void pranavjawale01() {
-    ll k;
-    cin >> k;
     string s;
-    cin >> s;
-    vi arr(26, 0);
-    for (char c : s) {
-        arr[c - 'a']++;
-    }
+    ll k;
+    cin >> k >> s;
+    vll count(26, 0);
+    for (char &c : s) count[c - 'a']++;
     string ans = "";
-    ll i = 0;
-    for (; i < 26; i++) {
-        if (arr[i] % k != 0) {
-            break;
+    for (ll i = 0; i < 26; i++) {
+        if (count[i] % k != 0) {
+            cout << -1 << endl;
+            return;
         } else {
-            ans.append(arr[i] / k, i + 'a');
+            ans.append(count[i] / k, 'a' + i);
         }
     }
-    if (i == 26) {
-        while (k--) {
-            cout << ans;
-        }
-        cout << endl;
-    } else {
-        cout << "-1" << endl;
+    while (k--) {
+        cout << ans;
     }
+    cout << endl;
 }
 
 int main() {
