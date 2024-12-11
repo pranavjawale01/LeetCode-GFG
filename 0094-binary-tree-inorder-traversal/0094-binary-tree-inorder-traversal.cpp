@@ -12,18 +12,46 @@
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> result;
-        inorderTraversalRecursive(root, result);
-        return result;
-    }
-
-private:
-    void inorderTraversalRecursive(TreeNode* node, vector<int>& result) {
-        if (node == nullptr) {
-            return;
+        vector<int> ans;
+        TreeNode *curr = root;
+        while (curr) {
+            if (!curr->left) {
+                ans.push_back(curr->val);
+                curr = curr->right;
+            } else {
+                TreeNode *prev = curr->left;
+                while (prev->right && prev->right != curr) {
+                    prev = prev->right;
+                }
+                if (!prev->right) {
+                    prev->right = curr;
+                    curr = curr->left;
+                } else {
+                    prev->right = nullptr;
+                    ans.push_back(curr->val);
+                    curr = curr->right;
+                }
+            }
         }
-        inorderTraversalRecursive(node->left, result);
-        result.push_back(node->val);
-        inorderTraversalRecursive(node->right, result);
+        return ans;
     }
 };
+
+
+
+
+
+// class Solution {
+// public:
+//     vector<int> inorderTraversal(TreeNode* root) {
+//         vector<int> ans;
+//         function<void(TreeNode*)> dfs = [&](TreeNode* node) {
+//             if (!node) return;
+//             dfs(node->left);
+//             ans.push_back(node->val);
+//             dfs(node->right);
+//         };
+//         dfs(root);
+//         return ans;
+//     }
+// };
