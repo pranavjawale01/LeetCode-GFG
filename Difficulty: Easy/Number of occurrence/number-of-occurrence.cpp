@@ -6,17 +6,30 @@ using namespace std;
 
 
 // } Driver Code Ends
+
+
 class Solution {
   public:
     int countFreq(vector<int>& arr, int target) {
         // code here
-        int count = 0;
-        for (int x : arr) {
-            if (x == target) count++;
-        }
-        return count;
+        auto lb = lower_bound(arr.begin(), arr.end(), target);
+        auto ub = upper_bound(arr.begin(), arr.end(), target);
+        return ub - lb;
     }
 };
+
+// class Solution {
+//   public:
+//     int countFreq(vector<int>& arr, int target) {
+//         // code here
+//         int count = 0;
+//         for (int x : arr) {
+//             if (x == target) count++;
+//         }
+//         return count;
+//     }
+// };
+
 
 //{ Driver Code Starts.
 
