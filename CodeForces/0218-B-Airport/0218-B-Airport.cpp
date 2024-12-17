@@ -74,28 +74,32 @@ void pranavjawale01() {
     cin >> n >> m;
     vll arr(m);
     input1d(arr);
-    sort(all(arr));
-    ll min = 0, num = arr[0], k = 0;
-    for (ll i = 0; i < n; i++) {
-        min += num;
-        num -= 1;
-        if (num == 0) {
-            num = arr[++k];
-        }
+
+    ll maxVal = 0, minVal = 0;
+
+    priority_queue<ll> pqMax;
+    priority_queue<ll, vector<ll>, greater<ll>> pqMin;
+
+    for (ll i = 0; i < m; i++) {
+        pqMax.push(arr[i]);
+        pqMin.push(arr[i]);
     }
-    sort(all(arr), greater<ll>());
-    ll max = 0;
+    ll people = n;
     while (n--) {
-        max += arr[0];
-        arr[0]--;
-        for (ll i = 1; i < m; i++) {
-            if (arr[i] <= arr[i-1]) {
-                break;
-            }
-            swap(arr[i], arr[i-1]);
+        ll top = pqMin.top();
+        pqMin.pop();
+        minVal += top;
+        if (top > 1) {
+            pqMin.push(top - 1);
+        }
+        top = pqMax.top();
+        pqMax.pop();
+        maxVal += top;
+        if (top > 1) {
+            pqMax.push(top - 1);
         }
     }
-    cout << max << " " << min << endl;
+    cout << maxVal << " " << minVal << endl;
 }
 
 int main() {
