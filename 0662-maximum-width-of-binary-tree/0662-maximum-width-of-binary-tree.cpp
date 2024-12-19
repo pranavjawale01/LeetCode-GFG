@@ -13,20 +13,20 @@ class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) {
         if (!root) return 0;
-        queue<pair<TreeNode*, int>> q;
+        queue<pair<TreeNode*, unsigned long long>> q;
         q.push({root, 0});
         int maxWidth = 0;
         while (!q.empty()) {
-            int n = q.size();
-            int start = q.front().second;
-            int end = q.back().second;
-            maxWidth = max(maxWidth, end - start + 1);
-            while (n--) {
-                auto [node, idx] = q.front();
+            int size = q.size();
+            unsigned long long start = q.front().second;
+            unsigned long long end = q.back().second;
+            maxWidth = max(maxWidth, static_cast<int>(end - start + 1));
+            for (int i = 0; i < size; ++i) {
+                auto [node, index] = q.front();
                 q.pop();
-                int normalisedidx = idx - start;
-                if (node->left) q.push({node->left, 2 * normalisedidx + 1});
-                if (node->right) q.push({node->right, 2 * normalisedidx + 2});
+                unsigned long long normalizedIndex = index - start;
+                if (node->left) q.push({node->left, 2 * normalizedIndex + 1});
+                if (node->right) q.push({node->right, 2 * normalizedIndex + 2});
             }
         }
         return maxWidth;
