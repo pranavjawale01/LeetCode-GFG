@@ -74,9 +74,12 @@ void pranavjawale01() {
     cin >> n >> k;
     vll arr(n);
     input1d(arr);
-    unordered_set<ll> st(all(arr));
-    for (auto &x : st) {
-        if (st.find(k + x) != st.end()) {
+    unordered_map<ll, ll> mp;
+    for (auto &x : arr) {
+        mp[x]++;
+    }
+    for (ll i = 0; i < n; i++) {
+        if (mp[k + arr[i]]) {
             yes;
             return;
         }
