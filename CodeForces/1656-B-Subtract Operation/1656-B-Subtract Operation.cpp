@@ -70,16 +70,15 @@ void output2d(const vector<vector<T>> &arr) {
 
 //----------------------------------Solution code here-----------------------------//
 void pranavjawale01() {
-    ll n, k;
+    int n, k;
     cin >> n >> k;
-    vll arr(n);
-    input1d(arr);
-    unordered_map<ll, ll> mp;
-    for (auto &x : arr) {
-        mp[x]++;
-    }
-    for (ll i = 0; i < n; i++) {
-        if (mp[k + arr[i]]) {
+    int a[n];
+    for (int i = 0; i < n; i++) cin >> a[i];
+    sort(a, a+n);
+    bool flag = false;
+    for (int i = 0; i < n; i++) {
+        int to_find = a[i] + k;
+        if (binary_search(a+i+1, a+n, to_find)) {
             yes;
             return;
         }
