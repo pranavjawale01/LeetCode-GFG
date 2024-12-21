@@ -1,40 +1,44 @@
 class Solution {
     public int maxKDivisibleComponents(int n, int[][] edges, int[] values, int k) {
-        Map<Integer, List<Integer>> mp = new HashMap<>();
-        for (int i = 0; i < n; i++) {
-            mp.put(i, new ArrayList<>());
-        }
+        Map<Integer, List<Integer>> graph = new HashMap<>();
         int[] degree = new int[n];
-        for (int[] x : edges) {
-            mp.get(x[0]).add(x[1]);
-            mp.get(x[1]).add(x[0]);
-            degree[x[0]]++;
-            degree[x[1]]++;
-        }
-        Queue<Integer> q = new LinkedList<>();
         for (int i = 0; i < n; i++) {
-            if (degree[i] == 1) q.offer(i);
+            graph.put(i, new ArrayList<>());
+        }
+        for (int[] edge : edges) {
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+            degree[edge[0]]++;
+            degree[edge[1]]++;
+        }
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < n; i++) {
+            if (degree[i] == 1) {
+                queue.offer(i);
+            }
         }
         long[] arr = new long[n];
         for (int i = 0; i < n; i++) {
-            arr[i] = (long)values[i];
+            arr[i] = values[i];
         }
         int count = 0;
-        while (!q.isEmpty()) {
-            int top = q.poll();
+        while (!queue.isEmpty()) {
+            int top = queue.poll();
             degree[top]--;
             long sum = (arr[top] % k == 0) ? 0 : arr[top];
-            if (sum == 0) count++;
-            for (Integer x : mp.get(top)) {
-                if (degree[x] > 0) {
-                    degree[x]--;
-                    arr[x] += sum;
-                    if (degree[x] == 1) {
-                        q.offer(x);
+            if (sum == 0) {
+                count++;
+            }
+            for (int neighbor : graph.get(top)) {
+                if (degree[neighbor] > 0) {
+                    degree[neighbor]--;
+                    arr[neighbor] += sum;
+                    if (degree[neighbor] == 1) {
+                        queue.offer(neighbor);
                     }
                 }
             }
         }
-        return count;
+        return count == 0 ? 1 : count;
     }
 }
