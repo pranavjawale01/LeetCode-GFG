@@ -12,11 +12,16 @@
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
-        if (root == nullptr) {
-            return 0;
-        }
-        int left = 1 + maxDepth(root->left);
-        int right = 1 + maxDepth(root->right);
-        return max(left, right);
+        int ans = 0;
+        function<void(TreeNode*, int)> solve = [&](TreeNode *rt, int count) {
+            if (!rt) {
+                ans = max(ans, count);
+                return;
+            }
+            solve(rt->left, count + 1);
+            solve(rt->right, count + 1);
+        };
+        solve(root, 0);
+        return ans;
     }
 };
