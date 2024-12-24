@@ -1,42 +1,33 @@
 class Solution {
 public:
+    void findFarthest(int node, int par, int dis, unordered_map<int, vector<int>> &mp, pair<int, int> &res) {
+        if (dis > res.first) {
+            res = {dis, node};
+        }
+        for (auto &x : mp[node]) {
+            if (x != par) {
+                findFarthest(x, node, dis + 1, mp, res);
+            }
+        }
+    }
     int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {
-        auto computeDiameter = [](unordered_map<int, vector<int>>& adj) -> int {
-            auto bfs = [&](int start) {
-                unordered_map<int, int> dist;
-                queue<int> q;
-                q.push(start);
-                dist[start] = 0;
-                int farthest = start;
-                while (!q.empty()) {
-                    int node = q.front();
-                    q.pop();
-                    for (auto& neighbor : adj[node]) {
-                        if (dist.find(neighbor) == dist.end()) {
-                            dist[neighbor] = dist[node] + 1;
-                            q.push(neighbor);
-                            if (dist[neighbor] > dist[farthest]) farthest = neighbor;
-                        }
-                    }
-                }
-                return make_pair(farthest, dist[farthest]);
-            };
-            auto [startNode, _] = bfs(0);
-            auto [farthestNode, diameter] = bfs(startNode);
-            return diameter;
-        };
-
         unordered_map<int, vector<int>> mp1, mp2;
-        for (auto& edge : edges1) {
-            mp1[edge[0]].push_back(edge[1]);
-            mp1[edge[1]].push_back(edge[0]);
+        for (auto &x : edges1) {
+            mp1[x[0]].push_back(x[1]);
+            mp1[x[1]].push_back(x[0]);
         }
-        for (auto& edge : edges2) {
-            mp2[edge[0]].push_back(edge[1]);
-            mp2[edge[1]].push_back(edge[0]);
+        for (auto &x : edges2) {
+            mp2[x[0]].push_back(x[1]);
+            mp2[x[1]].push_back(x[0]);
         }
-        int d1 = computeDiameter(mp1);
-        int d2 = computeDiameter(mp2);
-        return max({d1, d2, (d1 + 1 + d2 + 1 + 1) / 2});
+        pair<int, int> res1 = {INT_MIN, -1}, res2 = {INT_MIN, -1};
+        findFarthest(0, -1, 0, mp1, res1);
+        findFarthest(res1.second, -1, 0, mp1, res2);
+        int d1 = res2.first;
+        res1 = {INT_MIN, -1}, res2 = {INT_MIN, -1};
+        findFarthest(0, -1, 0, mp2, res1);
+        findFarthest(res1.second, -1, 0, mp2, res2);
+        int d2 = res2.first;
+        return max({d1, d2, ((d1 + 1) / 2) + ((d2 + 1) / 2) + 1 });
     }
 };
