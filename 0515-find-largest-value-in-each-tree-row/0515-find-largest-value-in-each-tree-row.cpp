@@ -31,7 +31,7 @@ public:
                     maxVal = max(maxVal, temp->left->val);
                 }
                 if (temp->right) {
-                    if (!flag) maxVal = temp->left->val;
+                    if (!flag) maxVal = temp->right->val;
                     flag = true;
                     q.push(temp->right);
                     maxVal = max(maxVal, temp->right->val);
