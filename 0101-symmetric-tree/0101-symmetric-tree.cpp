@@ -12,19 +12,12 @@
 class Solution {
 public:
     bool isSymmetric(TreeNode* root) {
-        if (root == nullptr) {
-            return true;
-        }
-        return isSym(root->left, root->right);
-    }
-
-    bool isSym(TreeNode* left, TreeNode* right) {
-        if (left == nullptr && right == nullptr) {
-            return true;
-        }
-        if (left == nullptr || right == nullptr || left->val != right->val) {
-            return false;
-        }
-        return isSym(left->left, right->right) && isSym(left->right, right->left);
+        if (!root) return true;
+        function<bool(TreeNode*, TreeNode*)> sym = [&](TreeNode *l, TreeNode *r) {
+            if (!l && !r) return true;
+            if (!l || !r || l->val != r->val) return false;
+            return sym(l->left, r->right) && sym(l->right, r->left);
+        };
+        return sym(root->left, root->right);
     }
 };
