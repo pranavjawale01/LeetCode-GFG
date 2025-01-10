@@ -70,6 +70,8 @@ void output2d(const vector<vector<T>> &arr) {
 
 //----------------------------------Solution code here-----------------------------//
 void pranavjawale01() {
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
     ll n;
     cin >> n;
     vll arr(n*2);
@@ -94,6 +96,8 @@ int main() {
     fast_io();
     int t = 1;
     //cin >> t;
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
     while (t--) {
         pranavjawale01();
     }
