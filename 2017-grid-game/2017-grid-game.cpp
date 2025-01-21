@@ -1,18 +1,13 @@
 class Solution {
 public:
-    #define ll long long
-    #define all(x) x.begin(), x.end()
-
     long long gridGame(vector<vector<int>>& grid) {
         int n = grid[0].size();
-        ll firstRowSum = accumulate(all(grid[0]), 0ll);
-        ll secondRowSum = 0;
-        ll minRob2Sum = LONG_LONG_MAX;
+        long long firstRowSum = accumulate(grid[0].begin(), grid[0].end(), 0LL);
+        long long secondRowSum = 0, minRob2Sum = LLONG_MAX;
 
-        for (ll i = 0; i < n; i++) {
+        for (int i = 0; i < n; ++i) {
             firstRowSum -= grid[0][i];
-            ll bestOfRobot2 = max(firstRowSum, secondRowSum);
-            minRob2Sum = min(minRob2Sum, bestOfRobot2);
+            minRob2Sum = min(minRob2Sum, max(firstRowSum, secondRowSum));
             secondRowSum += grid[1][i];
         }
 
