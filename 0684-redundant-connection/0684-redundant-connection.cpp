@@ -1,6 +1,8 @@
 class Solution {
 public:
-    bool bfs(unordered_map<int, vector<int>> &mp, int u, int v, vector<bool> &vis) {
+    int n;
+    bool bfs(unordered_map<int, vector<int>> &mp, int u, int v) {
+        vector<bool> vis(n + 1, false);
         queue<int> q;
         q.push(u);
         while (!q.empty()) {
@@ -9,19 +11,18 @@ public:
             vis[curr] = true;
             if (curr == v) return true;
             for (int &x : mp[curr]) {
-                q.push(x);
+                if (!vis[x]) q.push(x);
             }
         }
         return false;
     }
 
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
-        int n = edges.size();
+        n = edges.size();
         unordered_map<int, vector<int>> mp;
         for (auto &x : edges) {
             int u = x[0], v = x[1];
-            vector<bool> vis(n + 1, false);
-            if (mp.count(u) && mp.count(v) && bfs(mp, u, v, vis)) {
+            if (mp.count(u) && mp.count(v) && bfs(mp, u, v)) {
                 return x;
             }
             mp[u].push_back(v);
