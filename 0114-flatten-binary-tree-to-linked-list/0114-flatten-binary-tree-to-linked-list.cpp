@@ -19,9 +19,7 @@ public:
         root->right = root->left;
         root->left = nullptr;
         TreeNode *curr = root;
-        while (curr->right) {
-            curr = curr->right;
-        }
+        while (curr->right) curr = curr->right;
         curr->right = temp;
     }
 };
