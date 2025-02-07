@@ -14,11 +14,14 @@ public:
     }
 
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
-        m = image.size(), n = image.size();
+        m = image.size();
+        n = image[0].size();
         int curr = image[sr][sc];
+
         if (curr == color) {
             return image;
         }
+
         solve(image, sr, sc, curr, color);
         return image;
     }
