@@ -1,9 +1,10 @@
 class Solution:
     def clearDigits(self, s: str) -> str:
-        ans = ""
+        ans = []
         for c in s:
             if c.isdigit():
-                ans = ans[:-1]
+                if ans:
+                    ans.pop()
             else:
-                ans += c
-        return ans
+                ans.append(c)
+        return "".join(ans)
