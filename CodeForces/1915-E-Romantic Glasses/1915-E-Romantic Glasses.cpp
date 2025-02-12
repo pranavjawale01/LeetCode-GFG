@@ -74,19 +74,17 @@ void pranavjawale01() {
     cin >> n;
     vll arr(n);
     input1d(arr);
-    bool turn = true;
     ll sum = 0;
-    unordered_map<ll, ll> mp;
+    map<ll, ll> mp;
     mp[0] = 1;
     for (ll i = 0; i < n; i++) {
-        if (turn) arr[i] *= -1;
+        if (i % 2 == 1) arr[i] *= -1;
         sum += arr[i];
-        if (mp.find(sum) != mp.end()) {
+        if (mp[sum]) {
             yes;
             return;
         }
         mp[sum]++;
-        turn = !turn;
     }
     no;
 }
