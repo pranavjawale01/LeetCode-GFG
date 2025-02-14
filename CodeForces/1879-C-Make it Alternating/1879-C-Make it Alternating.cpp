@@ -22,7 +22,7 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 #define yes cout << "YES" << endl
 #define no cout << "NO" << endl
 
-const int MOD = 1e9 + 7;
+const int MOD = 998244353;
 const ll INF = 1e18;
 const ld PI = acos(-1.0);
 
