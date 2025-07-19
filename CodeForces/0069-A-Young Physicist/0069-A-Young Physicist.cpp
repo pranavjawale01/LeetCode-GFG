@@ -12,7 +12,9 @@ using namespace std;
 #define pb push_back
 #define ff first
 #define ss second
-#define endl "\n"
+#define nl "\n"
+#define yes cout << "YES" << endl
+#define no cout << "NO" << endl
 
 const int MOD = 1e9 + 7;
 const ll INF = 1e18;
@@ -70,25 +72,24 @@ void output2d(const vector<vector<T>> &arr) {
 void pranavjawale01() {
     ll n;
     cin >> n;
-    ll xsum = 0, ysum = 0, zsum = 0;
+    ll x = 0, y = 0, z = 0;
     while (n--) {
-        ll x, y, z;
-        cin >> x >> y >> z;
-        xsum += x;
-        ysum += y;
-        zsum += z;
+        ll a = 0, b = 0, c = 0;
+        cin >> a >> b >> c;
+        x += a;
+        y += b;
+        z += c;
     }
-    if (xsum == 0 && ysum == 0 && zsum == 0) {
-        cout << "YES" << endl;
-    } else {
-        cout << "NO" << endl;
-    }
+    if (x == 0 && y == z) yes;
+    else no;
 }
 
 int main() {
     fast_io();
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
     int t = 1;
-    //cin >> t;
+    // cin >> t;
     while (t--) {
         pranavjawale01();
     }
