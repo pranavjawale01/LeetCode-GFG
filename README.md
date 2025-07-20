@@ -6,5 +6,3 @@ Competitive programming solutions from:
 - Codeforces
 
 🛠 Languages: C++, Java, Python
-
-> Run `cp.exe` → Get AC ✅
