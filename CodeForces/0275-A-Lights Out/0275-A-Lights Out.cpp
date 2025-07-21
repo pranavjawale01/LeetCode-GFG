@@ -12,7 +12,9 @@ using namespace std;
 #define pb push_back
 #define ff first
 #define ss second
-#define endl "\n"
+#define nl "\n"
+#define yes cout << "YES" << endl
+#define no cout << "NO" << endl
 
 const int MOD = 1e9 + 7;
 const ll INF = 1e18;
@@ -52,7 +54,7 @@ void input2d(vector<vector<T>> &arr) {
 
 template<typename T>
 void output1d(const vector<T> &arr) {
-    for (const auto &x : arr) cout << x << " ";
+    for (const auto &x : arr) cout << x << nl;
     cout << endl;
 }
 
@@ -67,42 +69,30 @@ void output2d(const vector<vector<T>> &arr) {
 }
 
 //----------------------------------Solution code here-----------------------------//
-void toggle(vector<vector<int>>& grid, int i, int j) {
-    if (i >= 0 && i < 3 && j >= 0 && j < 3) {
-        grid[i][j] = 1 - grid[i][j];
-    }
-}
-
 void pranavjawale01() {
-    vector<vector<int>> grid(3, vector<int>(3, 1));
-    vector<vector<int>> presses(3, vector<int>(3, 0));
-
-    input2d(presses);
-
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
-            if (presses[i][j] % 2 != 0) {
-                toggle(grid, i, j);
-                toggle(grid, i - 1, j);   // Toggle above
-                toggle(grid, i + 1, j);   // Toggle below
-                toggle(grid, i, j - 1);   // Toggle left
-                toggle(grid, i, j + 1);   // Toggle right
+    vector<vll> arr(3, vll(3)); // Corrected the declaration
+    input2d(arr);
+    vector<string> ans(3, "111");
+    for (ll i = 0; i < 3; i++) {
+        for (ll j = 0; j < 3; j++) {
+            if (arr[i][j] & 1) {
+                ans[i][j] = '1' - (ans[i][j] - '0');
+                if (j + 1 <= 2) ans[i][j + 1] = '1' - (ans[i][j + 1] - '0');
+                if (j - 1 >= 0) ans[i][j - 1] = '1' - (ans[i][j - 1] - '0');
+                if (i + 1 <= 2) ans[i + 1][j] = '1' - (ans[i + 1][j] - '0');
+                if (i - 1 >= 0) ans[i - 1][j] = '1' - (ans[i - 1][j] - '0');
             }
         }
     }
-
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
-            cout << grid[i][j];
-        }
-        cout << endl;
-    }
+    output1d(ans);
 }
 
 int main() {
     fast_io();
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
     int t = 1;
-    //cin >> t;
+    // cin >> t;
     while (t--) {
         pranavjawale01();
     }
