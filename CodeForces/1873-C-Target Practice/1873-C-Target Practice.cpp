@@ -76,22 +76,36 @@ void pranavjawale01() {
     for (ll i = 0; i < 10; i++) {
         for (ll j = 0; j < 10; j++) {
             if (arr[i][j] == 'X') {
-                if (i <= 5 && i >= 4 && j <= 5 && j >= 4) {
-                    ans += 5;
-                } else if (i <= 6 && i >= 3 && j <= 6 && j >= 3) {
-                    ans += 4;
-                } else if (i <= 7 && i >= 2 && j <= 7 && j >= 2) {
-                    ans += 3;
-                } else if (i <= 8 && i >= 1 && j <= 8 && j >= 1) {
-                    ans += 2;
-                } else {
-                    ans += 1;
-                }
+                ans += min(min(i, 9 - i), min(j, 9 - j)) + 1;
             }
         }
     }
     cout << ans << nl;
 }
+
+// void pranavjawale01() {
+//     vector<vector<char>> arr(10, vector<char>(10, '.'));
+//     input2d(arr);
+//     ll ans = 0;
+//     for (ll i = 0; i < 10; i++) {
+//         for (ll j = 0; j < 10; j++) {
+//             if (arr[i][j] == 'X') {
+//                 if (i <= 5 && i >= 4 && j <= 5 && j >= 4) {
+//                     ans += 5;
+//                 } else if (i <= 6 && i >= 3 && j <= 6 && j >= 3) {
+//                     ans += 4;
+//                 } else if (i <= 7 && i >= 2 && j <= 7 && j >= 2) {
+//                     ans += 3;
+//                 } else if (i <= 8 && i >= 1 && j <= 8 && j >= 1) {
+//                     ans += 2;
+//                 } else {
+//                     ans += 1;
+//                 }
+//             }
+//         }
+//     }
+//     cout << ans << nl;
+// }
 
 int main() {
     fast_io();
