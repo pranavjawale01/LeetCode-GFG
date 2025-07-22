@@ -12,7 +12,9 @@ using namespace std;
 #define pb push_back
 #define ff first
 #define ss second
-#define endl "\n"
+#define nl "\n"
+#define yes cout << "YES" << endl
+#define no cout << "NO" << endl
 
 const int MOD = 1e9 + 7;
 const ll INF = 1e18;
@@ -72,25 +74,18 @@ void pranavjawale01() {
     cin >> n;
     string s;
     cin >> s;
-    ll ans = n;
-    bool flag = true;
-    ll i = 0;
-    while (flag && ans > 0) {
-        if ((s[i] == '0' && s[n-1-i] == '1') || (s[i] == '1' && s[n-1-i] == '0')) {
-            ans -= 2;
-            i++;
-        } else {
-            flag = false;
-        }
+    ll l = 0, r = n - 1;
+    while (s[l] != s[r] && l < r) {
+        l++;
+        r--;
     }
-    if (ans < 0) {
-        ans = 0;
-    }
-    cout << ans << endl;
+    cout << r - l + 1 << nl;
 }
 
 int main() {
     fast_io();
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
     int t = 1;
     cin >> t;
     while (t--) {
