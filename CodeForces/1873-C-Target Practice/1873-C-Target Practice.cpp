@@ -1,55 +1,103 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-bool first(int i, int j) {
-    return (i == 0 && j >= 0 && j <= 9) || (i == 9 && j >= 0 && j <= 9) || (j == 0 && i >= 0 && i <= 9) || (j == 9 && i >= 0 && i <= 9);
+#define ll long long
+#define ld long double
+#define ull unsigned long long
+#define vi vector<int>
+#define vll vector<long long>
+#define pii pair<int, int>
+#define pll pair<long long, long long>
+#define all(x) x.begin(), x.end()
+#define pb push_back
+#define ff first
+#define ss second
+#define nl "\n"
+#define yes cout << "YES" << endl
+#define no cout << "NO" << endl
+
+const int MOD = 1e9 + 7;
+const ll INF = 1e18;
+const ld PI = acos(-1.0);
+
+void fast_io() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
 }
 
-bool second(int i, int j) {
-    return (i == 1 && j >= 1 && j <= 8) || (i == 8 && j >= 1 && j <= 8) || (j == 1 && i >= 1 && i <= 8) || (j == 8 && i >= 1 && i <= 8);
+ll gcd(ll a, ll b) { return b ? gcd(b, a % b) : a; }
+ll lcm(ll a, ll b) { return (a / gcd(a, b)) * b; }
+ll mod_exp(ll base, ll exp, ll mod = MOD) {
+    ll res = 1;
+    while (exp > 0) {
+        if (exp % 2 == 1) res = (res * base) % mod;
+        base = (base * base) % mod;
+        exp /= 2;
+    }
+    return res;
 }
 
-bool third(int i, int j) {
-    return (i == 2 && j >= 2 && j <= 7) || (i == 7 && j >= 2 && j <= 7) || (j == 2 && i >= 2 && i <= 7) || (j == 7 && i >= 2 && i <= 7);
+template<typename T>
+void input1d(vector<T> &arr) {
+    for (auto &x : arr) cin >> x;
 }
 
-bool fourth(int i, int j) {
-    return (i == 3 && j >= 3 && j <= 6) || (i == 6 && j >= 3 && j <= 6) || (j == 3 && i >= 3 && i <= 6) || (j == 6 && i >= 3 && i <= 6);
-}
-
-void pranavjawale01() {
-    vector<vector<char>> arr(10, vector<char>(10)); 
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            cin >> arr[i][j];
+template<typename T>
+void input2d(vector<vector<T>> &arr) {
+    for (auto &row : arr) {
+        for (auto &x : row) {
+            cin >> x;
         }
     }
-    int one = 0, two = 0, three = 0, four = 0, five = 0;
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
+}
+
+template<typename T>
+void output1d(const vector<T> &arr) {
+    for (const auto &x : arr) cout << x << nl;
+    cout << endl;
+}
+
+template<typename T>
+void output2d(const vector<vector<T>> &arr) {
+    for (const auto &row : arr) {
+        for (const auto &x : row) {
+            cout << x << " ";
+        }
+        cout << endl;
+    }
+}
+
+//----------------------------------Solution code here-----------------------------//
+void pranavjawale01() {
+    vector<vector<char>> arr(10, vector<char>(10, '.'));
+    input2d(arr);
+    ll ans = 0;
+    for (ll i = 0; i < 10; i++) {
+        for (ll j = 0; j < 10; j++) {
             if (arr[i][j] == 'X') {
-                if (first(i, j)) {
-                    one++;
-                } else if (second(i, j)) {
-                    two++;
-                } else if (third(i, j)) {
-                    three++;
-                } else if (fourth(i, j)) {
-                    four++;
+                if (i <= 5 && i >= 4 && j <= 5 && j >= 4) {
+                    ans += 5;
+                } else if (i <= 6 && i >= 3 && j <= 6 && j >= 3) {
+                    ans += 4;
+                } else if (i <= 7 && i >= 2 && j <= 7 && j >= 2) {
+                    ans += 3;
+                } else if (i <= 8 && i >= 1 && j <= 8 && j >= 1) {
+                    ans += 2;
                 } else {
-                    five++;
+                    ans += 1;
                 }
             }
         }
     }
-    cout << one * 1 + two * 2 + three * 3 + four * 4 + five * 5 << endl;
+    cout << ans << nl;
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
-    int t;
+    fast_io();
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+    int t = 1;
     cin >> t;
     while (t--) {
         pranavjawale01();
