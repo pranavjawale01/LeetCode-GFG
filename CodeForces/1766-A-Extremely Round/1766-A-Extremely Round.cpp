@@ -12,7 +12,9 @@ using namespace std;
 #define pb push_back
 #define ff first
 #define ss second
-#define endl "\n"
+#define nl "\n"
+#define yes cout << "YES" << endl
+#define no cout << "NO" << endl
 
 const int MOD = 1e9 + 7;
 const ll INF = 1e18;
@@ -67,28 +69,24 @@ void output2d(const vector<vector<T>> &arr) {
 }
 
 //----------------------------------Solution code here-----------------------------//
-ll solve(ll n) {
-    ll count = 0;
-    for (ll i = 1; i <= n; i *= 10) {
-        for (ll j = 1; j <= 9; ++j) {
-            if (j * i <= n) {
-                count++;
-            } else {
-                break;
-            }
-        }
-    }
-    return count;
-}
-
 void pranavjawale01() {
     ll n;
     cin >> n;
-    cout << solve(n) << endl;
+    ll ans = 0;
+    for (ll i = 1; i <= 1000000; i *= 10) {
+        if (i * 10 <= n) {
+            ans += 9;
+        } else {
+            ans += n / i;
+        }
+    }
+    cout << ans << endl;
 }
 
 int main() {
     fast_io();
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
     int t = 1;
     cin >> t;
     while (t--) {
