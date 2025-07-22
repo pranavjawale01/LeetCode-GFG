@@ -12,7 +12,9 @@ using namespace std;
 #define pb push_back
 #define ff first
 #define ss second
-#define endl "\n"
+#define nl "\n"
+#define yes cout << "YES" << endl
+#define no cout << "NO" << endl
 
 const int MOD = 1e9 + 7;
 const ll INF = 1e18;
@@ -70,24 +72,19 @@ void output2d(const vector<vector<T>> &arr) {
 void pranavjawale01() {
     ll n, a, b;
     cin >> n >> a >> b;
-    if (a + b >= n) {
-        if (a == n && b == n) {
-            cout << "YES" << endl;
-        } else {
-            cout << "NO" << endl;
-        }
+    if (n == a && a == b) {
+        yes;
+    } else if (a + b + 2 <= n) {
+        yes;
     } else {
-        ll diff = n - a - b;
-        if (diff > 1) {
-            cout << "YES" << endl;
-        } else {
-            cout << "NO" << endl;
-        }
+        no;
     }
 }
 
 int main() {
     fast_io();
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
     int t = 1;
     cin >> t;
     while (t--) {
